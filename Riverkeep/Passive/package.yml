@@ -1,0 +1,90 @@
+npcs:
+  '1':  "bard"
+  '2':  "ulfhild"
+  '3':  "lunden"
+  '4':  "bahram"
+  '5':  "brunhilda"
+  '7':  "king_cedric_iv"
+  '8':  "gomes"
+  '11':  "wilkin"
+  '15':  "bobbart"
+  '19':  "buppert"
+  '20':  "mother"
+
+conversations:
+  bard:
+    quester: "Bard"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "The alignment of the planets indicates a great change is coming. Be prepared."
+
+  ulfhild:
+    quester: "Ulfhild"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "Watch out where you step, I just planted some herbs here."
+
+  lunden:
+    quester: "Lunden"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "I've been a logger for many years, and I know these woods like the back of my hand."
+
+  bahram:
+    quester: "Bahram"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "I'm not in the mood for talking. Can't you see I'm covered in dirt?"
+
+  brunhilda:
+    quester: "Brunhilda"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "I'm searching for clues about the lost civilization that used to live here. Have you heard anything about it?"
+
+  king_cedric_iv:
+    quester: "King Cedric IV"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "I'm the ruler of this city. Do you have any concerns or complaints?"
+
+  gomes:
+    quester: "Gomes"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "If you're heading out into the wilderness, make sure you bring enough supplies."
+
+  wilkin:
+    quester: "Wilkin"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "I just finished forging a new sword. Would you like to test it out?"
+
+  bobbart:
+    quester: "Bobbart"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "Hi there! Do you want to play with us?"
+
+  buppert:
+    quester: "Buppert"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "If you find any cool rocks or bugs, bring them to us. We love collecting them."
+
+  mother:
+    quester: "Mother"
+    first: welcome
+    NPC_options:
+      welcome:
+        text: "Being a parent is hard work, but it's all worth it when I see my children happy."

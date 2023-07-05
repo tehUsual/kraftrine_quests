@@ -1,0 +1,3587 @@
+npcs:
+  '133': "spawn"
+  '109': "riverkeep"
+  '111': "borecrest"
+  '113': "newledge"
+  '115': "crownholm"
+  '118': "steinhavn"
+  "120": "frostedge"
+  '122': "linedale"
+  '124': "thrallhaven"
+  '126': "littledew"
+  '128': "fungalflats"
+  '130': "norwatch"
+  '132': "pufferport"
+
+variables:
+  spawn:        -3199;64;-4414;world;90;12
+  riverkeep:    -3452;63;-4051;world;0;12
+  borecrest:    -4286;64;-4792;world;-90;12
+  newledge:     -4322;113;-5115;world;-90;12
+  crownholm:    -4084;74;-5084;world;-90;12
+  frostedge:    -4049;115;-3595;world;0;12
+  steinhavn:    -2737;87;-3568;world;90;12
+  linedale:     -2547;80;-3723;world;180;12
+  thrallhaven:  -1940;96;-3360;world;90;12
+  littledew:    -2668;79;-4267;world;-90;12
+  fungalflats:  -2896;68;-4483;world;90;12
+  norwatch:     -2838;84;-5632;world;180;12
+  pufferport:   -2909;63;-4668;world;90;12
+
+conversations:
+  # SPAWN
+  spawn:
+    quester: "Bob"
+    first: welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+
+  # RIVERKEEP
+  riverkeep:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_RK"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_RK
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_RK
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_RK"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+      
+# BORECREST
+  borecrest:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_BC"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_BC
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_BC
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_BC"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked     
+
+  # NEWLEDGE
+  newledge:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_NL"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_NL
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_NL
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_NL"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+
+  # CROWNHOLM
+  crownholm:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_CH"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_CH
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_CH
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_CH"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+
+  # FROSTEDGE
+  frostedge:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_FE"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_FE
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_FE
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_FE"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+
+  # STEINHAVN
+  steinhavn:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_SH"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_SH
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+      
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_SH
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_SH"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+
+  # LINEDALE
+  linedale:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_LA"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_LA
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_LA
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_LA"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+
+  # THRALLHAVEN
+  thrallhaven:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_TH"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_TH
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_TH
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_TH"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+
+  # LITTLEDEW
+  littledew:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_LE"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_LE
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_LE
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_LE"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+
+  # FUNGALFLATS
+  fungalflats:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_FF"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_FF
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,nwY,nwPY,nwPN,nwN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_FF
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_FF"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+
+  # NORWATCH
+  norwatch:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_NW"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_NW
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,ppY,ppPY,ppPN,ppN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_NW
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_NW"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel PUFFERPORT
+      ppY:
+        conditions: "chk_bought_PP"
+        text: "Pufferport &2[free]&r"
+        event: e_free_PP
+      ppPY:
+        conditions: "chk_unlock_PP,!chk_bought_PP,chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_once_PP
+      ppPN:
+        conditions: "chk_unlock_PP,!chk_bought_PP,!chk_hasExp_1"
+        text: "Pufferport &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ppN:
+        conditions: "!chk_unlock_PP"
+        text: "Pufferport &4[not unlocked]&r"
+        pointer: notunlocked
+
+  # PUFFERPORT
+  pufferport:
+    quester: "Bob"
+    first: welcome_unlock,welcome
+
+    NPC_options:
+      welcome: 
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event:
+        pointer: travel,unlock,howwork,bye
+      welcome_unlock:
+        conditions: "!chk_unlock_PP"
+        text: "┌─────── &5⋆⋅☆⋅⋆&r ───────┐\n|||       &7Bob's Travel Agency&r       |||\n└─────── &5⋆⋅☆⋅⋆&r ───────┘"
+        event: e_unlock_PP
+        pointer: travel,unlock,howwork,bye
+      wanttravel:
+        text: "Where should I take you?"
+        pointer: rspawn,rkY,rkPY,rkPN,rkN,bcY,bcPY,bcPN,bcN,nlY,nlPY,nlPN,nlN,chY,chPY,chPN,chN,feY,fePY,fePN,feN,shY,shPY,shPN,shN,laY,laPY,laPN,laN,thY,thPY,thPN,thN,leY,lePY,lePN,leN,ffY,ffPY,ffPN,ffN,nwY,nwPY,nwPN,nwN,bye
+      workdesc:
+        text: "Talk to a &6Bob&r in a village to unlock him.\nYou can then travel to that Bob from any other Bob.\nThere's a travel fee of &21 xp level&r, however, you can travel for free if you buy the location for &23 xp levels&r."
+        #exit
+
+      # Purchase
+      buydesc:
+        text: "That'll be 3 xp levels!"
+        pointer: buyyes,buyno
+      notnowbuy:
+        text: "Ok, come see me anytime!"
+        #exit
+      canbuy:
+        conditions: "chk_hasExp_3"
+        text: "Sold!"
+        event: e_buy_PP
+        #exit
+      cannotbuy:
+        conditions: "!chk_hasExp_3"
+        text: "It doesn't seem like you have 3 xp levels."
+        #exit
+
+      # Not unlocked
+      notunlocked:
+        text: "I'm sorry, but you have to find me at that location to unlock it."
+        #exit
+
+    player_options:
+      # Entry
+      travel:
+        text: "I want to travel."
+        pointer: wanttravel
+      unlock:
+        conditions: "!chk_bought_PP"
+        text: "I want to purchase this location."
+        pointer: buydesc
+      howwork:
+        text: "How does this work?"
+        pointer: workdesc
+      
+      # Buy
+      buyyes:
+        text: "Here!"
+        pointer: canbuy,cannotbuy
+      buyno:
+        text: "Not now.."
+        pointer: notnowbuy
+        #exit
+
+      # Travel spawn
+      rspawn:
+        text: "Spawn &2[free]&r"
+        event: e_free_spawn
+
+      # Not travel
+      bye:
+        text: "Bye."
+        #exit
+
+      # Travel RIVERKEEP
+      rkY:
+        conditions: "chk_bought_RK"
+        text: "Riverkeep &2[free]&r"
+        event: e_free_RK
+      rkPY:
+        conditions: "chk_unlock_RK,!chk_bought_RK,chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_once_RK
+      rkPN:
+        conditions: "chk_unlock_RK,!chk_bought_RK,!chk_hasExp_1"
+        text: "Riverkeep &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      rkN:
+        conditions: "!chk_unlock_RK"
+        text: "Riverkeep &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel BORECREST
+      bcY:
+        conditions: "chk_bought_BC"
+        text: "Borecrest &2[free]&r"
+        event: e_free_BC
+      bcPY:
+        conditions: "chk_unlock_BC,!chk_bought_BC,chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_once_BC
+      bcPN:
+        conditions: "chk_unlock_BC,!chk_bought_BC,!chk_hasExp_1"
+        text: "Borecrest &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      bcN:
+        conditions: "!chk_unlock_BC"
+        text: "Borecrest &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NEWLEDGE
+      nlY:
+        conditions: "chk_bought_NL"
+        text: "Newledge &2[free]&r"
+        event: e_free_NL
+      nlPY:
+        conditions: "chk_unlock_NL,!chk_bought_NL,chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_once_NL
+      nlPN:
+        conditions: "chk_unlock_NL,!chk_bought_NL,!chk_hasExp_1"
+        text: "Newledge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nlN:
+        conditions: "!chk_unlock_NL"
+        text: "Newledge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel CROWNHOLM
+      chY:
+        conditions: "chk_bought_CH"
+        text: "Crownholm &2[free]&r"
+        event: e_free_CH
+      chPY:
+        conditions: "chk_unlock_CH,!chk_bought_CH,chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_once_CH
+      chPN:
+        conditions: "chk_unlock_CH,!chk_bought_CH,!chk_hasExp_1"
+        text: "Crownholm &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      chN:
+        conditions: "!chk_unlock_CH"
+        text: "Crownholm &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FROSTEDGE
+      feY:
+        conditions: "chk_bought_FE"
+        text: "Frostedge &2[free]&r"
+        event: e_free_FE
+      fePY:
+        conditions: "chk_unlock_FE,!chk_bought_FE,chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_once_FE
+      fePN:
+        conditions: "chk_unlock_FE,!chk_bought_FE,!chk_hasExp_1"
+        text: "Frostedge &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      feN:
+        conditions: "!chk_unlock_FE"
+        text: "Frostedge &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel STEINHAVN
+      shY:
+        conditions: "chk_bought_SH"
+        text: "Steinhavn &2[free]&r"
+        event: e_free_SH
+      shPY:
+        conditions: "chk_unlock_SH,!chk_bought_SH,chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_once_SH
+      shPN:
+        conditions: "chk_unlock_SH,!chk_bought_SH,!chk_hasExp_1"
+        text: "Steinhavn &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      shN:
+        conditions: "!chk_unlock_SH"
+        text: "Steinhavn &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LINEDALE
+      laY:
+        conditions: "chk_bought_LA"
+        text: "Linedale &2[free]&r"
+        event: e_free_LA
+      laPY:
+        conditions: "chk_unlock_LA,!chk_bought_LA,chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_once_LA
+      laPN:
+        conditions: "chk_unlock_LA,!chk_bought_LA,!chk_hasExp_1"
+        text: "Linedale &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      laN:
+        conditions: "!chk_unlock_LA"
+        text: "Linedale &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel THRALLHAVEN
+      thY:
+        conditions: "chk_bought_TH"
+        text: "Thrallhaven &2[free]&r"
+        event: e_free_TH
+      thPY:
+        conditions: "chk_unlock_TH,!chk_bought_TH,chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_once_TH
+      thPN:
+        conditions: "chk_unlock_TH,!chk_bought_TH,!chk_hasExp_1"
+        text: "Thrallhaven &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      thN:
+        conditions: "!chk_unlock_TH"
+        text: "Thrallhaven &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel LITTLEDEW
+      leY:
+        conditions: "chk_bought_LE"
+        text: "Littledew &2[free]&r"
+        event: e_free_LE
+      lePY:
+        conditions: "chk_unlock_LE,!chk_bought_LE,chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_once_LE
+      lePN:
+        conditions: "chk_unlock_LE,!chk_bought_LE,!chk_hasExp_1"
+        text: "Littledew &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      leN:
+        conditions: "!chk_unlock_LE"
+        text: "Littledew &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel FUNGALFLATS
+      ffY:
+        conditions: "chk_bought_FF"
+        text: "Fungalflats &2[free]&r"
+        event: e_free_FF
+      ffPY:
+        conditions: "chk_unlock_FF,!chk_bought_FF,chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_once_FF
+      ffPN:
+        conditions: "chk_unlock_FF,!chk_bought_FF,!chk_hasExp_1"
+        text: "Fungalflats &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      ffN:
+        conditions: "!chk_unlock_FF"
+        text: "Fungalflats &4[not unlocked]&r"
+        pointer: notunlocked
+      # Travel NORWATCH
+      nwY:
+        conditions: "chk_bought_NW"
+        text: "Norwatch &2[free]&r"
+        event: e_free_NW
+      nwPY:
+        conditions: "chk_unlock_NW,!chk_bought_NW,chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_once_NW
+      nwPN:
+        conditions: "chk_unlock_NW,!chk_bought_NW,!chk_hasExp_1"
+        text: "Norwatch &6[1 xp lvl]&r"
+        event: e_fol_notOnce
+      nwN:
+        conditions: "!chk_unlock_NW"
+        text: "Norwatch &4[not unlocked]&r"
+        pointer: notunlocked
+
+
+events:
+  # Overall
+  e_pay_once:         "experience -1 action:addLevel"
+  e_pay_unlock:       "experience -3 action:addLevel"
+  # Can't pay once
+  e_fol_notOnce:      "folder e_notif_notOnce"
+  e_notif_notOnce:    "notify You need 1 diamond to travel to that location : ("
+  # Unlock
+  e_text_unlock:      "notify &6Unlocked a new fast travel!&r io:title"
+  e_sound_unlock:     "notify io:sound sound:entity.player.levelup"
+
+  # Travel Once
+  e_once_RK:          "folder e_pay_once,e_tp_RK"
+  e_once_BC:          "folder e_pay_once,e_tp_BC"
+  e_once_NL:          "folder e_pay_once,e_tp_NL"
+  e_once_CH:          "folder e_pay_once,e_tp_CH"
+  e_once_FE:          "folder e_pay_once,e_tp_FE"
+  e_once_SH:          "folder e_pay_once,e_tp_SH"
+  e_once_LA:          "folder e_pay_once,e_tp_LA"
+  e_once_TH:          "folder e_pay_once,e_tp_TH"
+  e_once_LE:          "folder e_pay_once,e_tp_LE"
+  e_once_FF:          "folder e_pay_once,e_tp_FF"
+  e_once_NW:          "folder e_pay_once,e_tp_NW"
+  e_once_PP:          "folder e_pay_once,e_tp_PP"
+
+  # Free
+  e_free_spawn:       "folder e_tp_spawn"
+  e_free_RK:          "folder e_tp_RK"
+  e_free_BC:          "folder e_tp_BC"
+  e_free_NL:          "folder e_tp_NL"
+  e_free_CH:          "folder e_tp_CH"
+  e_free_FE:          "folder e_tp_FE"
+  e_free_SH:          "folder e_tp_SH"
+  e_free_LA:          "folder e_tp_LA"
+  e_free_TH:          "folder e_tp_TH"
+  e_free_LE:          "folder e_tp_LE"
+  e_free_FF:          "folder e_tp_FF"
+  e_free_NW:          "folder e_tp_NW"
+  e_free_PP:          "folder e_tp_PP"
+
+  # Buy
+  e_buy_RK:           "folder e_pay_unlock,e_tag_add_RK,e_sound_unlock"
+  e_buy_BC:           "folder e_pay_unlock,e_tag_add_BC,e_sound_unlock"
+  e_buy_NL:           "folder e_pay_unlock,e_tag_add_NL,e_sound_unlock"
+  e_buy_CH:           "folder e_pay_unlock,e_tag_add_CH,e_sound_unlock"
+  e_buy_FE:           "folder e_pay_unlock,e_tag_add_FE,e_sound_unlock"
+  e_buy_SH:           "folder e_pay_unlock,e_tag_add_SH,e_sound_unlock"
+  e_buy_LA:           "folder e_pay_unlock,e_tag_add_LA,e_sound_unlock"
+  e_buy_TH:           "folder e_pay_unlock,e_tag_add_TH,e_sound_unlock"
+  e_buy_LE:           "folder e_pay_unlock,e_tag_add_LE,e_sound_unlock"
+  e_buy_FF:           "folder e_pay_unlock,e_tag_add_FF,e_sound_unlock"
+  e_buy_NW:           "folder e_pay_unlock,e_tag_add_NW,e_sound_unlock"
+  e_buy_PP:           "folder e_pay_unlock,e_tag_add_PP,e_sound_unlock"
+
+  # Buy tag
+  e_tag_add_RK: "tag add bought_RK"
+  e_tag_add_BC: "tag add bought_BC"
+  e_tag_add_NL: "tag add bought_NL"
+  e_tag_add_CH: "tag add bought_CH"
+  e_tag_add_FE: "tag add bought_FE"
+  e_tag_add_SH: "tag add bought_SH"
+  e_tag_add_LA: "tag add bought_LA"
+  e_tag_add_TH: "tag add bought_TH"
+  e_tag_add_LE: "tag add bought_LE"
+  e_tag_add_FF: "tag add bought_FF"
+  e_tag_add_NW: "tag add bought_NW"
+  e_tag_add_PP: "tag add bought_PP"
+
+  # Unlock Bob
+  e_unlock_RK:  "folder e_tag_add_u_RK,e_text_unlock,e_sound_unlock"
+  e_unlock_BC:  "folder e_tag_add_u_BC,e_text_unlock,e_sound_unlock"
+  e_unlock_NL:  "folder e_tag_add_u_NL,e_text_unlock,e_sound_unlock"
+  e_unlock_CH:  "folder e_tag_add_u_CH,e_text_unlock,e_sound_unlock"
+  e_unlock_FE:  "folder e_tag_add_u_FE,e_text_unlock,e_sound_unlock"
+  e_unlock_SH:  "folder e_tag_add_u_SH,e_text_unlock,e_sound_unlock"
+  e_unlock_LA:  "folder e_tag_add_u_LA,e_text_unlock,e_sound_unlock"
+  e_unlock_TH:  "folder e_tag_add_u_TH,e_text_unlock,e_sound_unlock"
+  e_unlock_LE:  "folder e_tag_add_u_LE,e_text_unlock,e_sound_unlock"
+  e_unlock_FF:  "folder e_tag_add_u_FF,e_text_unlock,e_sound_unlock"
+  e_unlock_NW:  "folder e_tag_add_u_NW,e_text_unlock,e_sound_unlock"
+  e_unlock_PP:  "folder e_tag_add_u_PP,e_text_unlock,e_sound_unlock"
+
+  # Unlock tag
+  e_tag_add_u_RK: "tag add unlock_RK"
+  e_tag_add_u_BC: "tag add unlock_BC"
+  e_tag_add_u_NL: "tag add unlock_NL"
+  e_tag_add_u_CH: "tag add unlock_CH"
+  e_tag_add_u_FE: "tag add unlock_FE"
+  e_tag_add_u_SH: "tag add unlock_SH"
+  e_tag_add_u_LA: "tag add unlock_LA"
+  e_tag_add_u_TH: "tag add unlock_TH"
+  e_tag_add_u_LE: "tag add unlock_LE"
+  e_tag_add_u_FF: "tag add unlock_FF"
+  e_tag_add_u_NW: "tag add unlock_NW"
+  e_tag_add_u_PP: "tag add unlock_PP"
+
+  # Teleports
+  e_tp_spawn:   "teleport $spawn$"
+  e_tp_RK:      "teleport $riverkeep$"
+  e_tp_BC:      "teleport $borecrest$"
+  e_tp_NL:      "teleport $newledge$"
+  e_tp_CH:      "teleport $crownholm$"
+  e_tp_FE:      "teleport $frostedge$"
+  e_tp_SH:      "teleport $steinhavn$"
+  e_tp_LA:      "teleport $linedale$"
+  e_tp_TH:      "teleport $thrallhaven$"
+  e_tp_LE:      "teleport $littledew$"
+  e_tp_FF:      "teleport $fungalflats$"
+  e_tp_NW:      "teleport $norwatch$"
+  e_tp_PP:      "teleport $pufferport$"
+
+
+conditions:
+  # Base
+  chk_hasExp_1:     "experience 1"
+  chk_hasExp_3:     "experience 3"
+
+  # Unlocks
+  chk_unlock_RK:    "tag unlock_RK"
+  chk_unlock_BC:    "tag unlock_BC"
+  chk_unlock_NL:    "tag unlock_NL"
+  chk_unlock_CH:    "tag unlock_CH"
+  chk_unlock_FE:    "tag unlock_FE"
+  chk_unlock_SH:    "tag unlock_SH"
+  chk_unlock_LA:    "tag unlock_LA"
+  chk_unlock_TH:    "tag unlock_TH"
+  chk_unlock_LE:    "tag unlock_LE"
+  chk_unlock_FF:    "tag unlock_FF"
+  chk_unlock_NW:    "tag unlock_NW"
+  chk_unlock_PP:    "tag unlock_PP"
+  # Bought
+  chk_bought_RK:    "tag bought_RK"
+  chk_bought_BC:    "tag bought_BC"
+  chk_bought_NL:    "tag bought_NL"
+  chk_bought_CH:    "tag bought_CH"
+  chk_bought_FE:    "tag bought_FE"
+  chk_bought_SH:    "tag bought_SH"
+  chk_bought_LA:    "tag bought_LA"
+  chk_bought_TH:    "tag bought_TH"
+  chk_bought_LE:    "tag bought_LE"
+  chk_bought_FF:    "tag bought_FF"
+  chk_bought_NW:    "tag bought_NW"
+  chk_bought_PP:    "tag bought_PP"
+
+items:
+  i_diamond:        "minecraft:diamond"

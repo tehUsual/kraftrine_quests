@@ -1,0 +1,186 @@
+npcs:
+  '106': "girlfriend"
+  '107': "boyfriend"
+
+conversations:
+  girlfriend:
+    quester: "Girlfriend"
+    first: welcome_QuestComplete,welcome_Opened,welcome_QuestActive,welcome_StartQuest
+
+    NPC_options:
+      # Start Quest
+      welcome_StartQuest: 
+        condition: "!chk_QuestStarted"
+        text: "My boyfriend just left me.. wueueue... please give this love letter to him for me?... wueue. He's in &2Linedale&r."
+        pointer: pyes,pno
+      thanks:
+        text: "Tanks! \nJust.. please don't open it. It's not for you. I mean it.. bad things WILL happend."
+        event: e_QuestStart
+      ohok:
+        text: "Oh.. wueue..\nWUEUEUEUUEUEUEUEUEUEU\nWUEUEUEUUEUEUEUEUEUE\nWUEUEUUEUEUEUEUE"
+        #exit
+      
+      # Quest Active
+      welcome_QuestActive:
+        condition: "chk_QuestStarted,!chk_LetterOpened"
+        text: "Just give it to my boyfriend in &2Linedale&r."
+        #exit
+      
+      # Letter Opened
+      welcome_Opened:
+        condition: "chk_LetterOpened"
+        text: "WHAT THE F#)! DID YOU DO? YOU'RE DEAD TO ME!"
+        pointer: uhoh
+      
+      # Quest Complete
+      welcome_QuestComplete:
+        conditions: "chk_QuestComplete"
+        text: "Thanks for giving him my letter! We're back together now <3"
+        #exit
+
+    player_options:
+      # Start Quest
+      pyes:
+        text: "Sure!"
+        pointer: thanks
+      pno:
+        text: "I don't have time for love."
+        pointer: ohok
+      
+      # Letter opened
+      uhoh:
+        text: "UHOH"
+        event: e_QuestFailed
+
+  boyfriend:
+    quester: "Boyfriend"
+    first: welcome_Opened,welcome_QuestDeliver,welcome_NotStarted
+
+    NPC_options:
+      # Not started
+      welcome_NotStarted:
+        condition: "!chk_QuestStarted"
+        text: "That stupid girlfriend.. she cheated on me, AGAIN. The one from Littledew. Never getting back together with her!"
+        #exit
+      
+      welcome_QuestDeliver:
+        condition: "chk_QuestStarted,!chk_LetterOpened"
+        text: "Oh, a letter, for me? Who might this be??"
+        pointer: fromgf,noclue
+      pgf:
+        text: "MY EX? That stupid.. fine.. just give it to me."
+        pointer: here
+      pnoclue:
+        text: "Oh.. well, thanks!"
+        pointer: here
+      thanks:
+        text: "Thanks!"
+        event: e_QuestComplete
+      thanksdie:
+        text: "Thanks!"
+        event: e_QuestCompleteDie
+      pnocluedie:
+        text: "Oh.. well, thanks!"
+        pointer: heredie
+      
+      welcome_Opened:
+        condition: "chk_QuestStarted,chk_LetterOpened"
+        text: "You opened by exes letter???"
+        pointer: uhm
+
+    player_options:
+      # Not opened
+      fromgf:
+        text: "It's from your ex."
+        pointer: pgf
+      noclue:
+        text: "I have no clue.."
+        pointer: pnoclue
+      here:
+        text: "Here"
+        pointer: thanks
+      
+      # Opened
+      uhm:
+        text: "Uhm no.. they just fell out.."
+        pointer: pnocluedie
+      heredie:
+        text: "Here"
+        pointer: thanksdie
+
+
+events:
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,tag_add_ALL_Start,e_give_LoveLetter,j_add_desc,e_startObj_OpenLetter"
+  e_text_QuestStart:      "notify &6Quest Started\n&aA Love Letter: Invite io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  tag_add_ALL_Start:      "tag add ALL_Start"
+  e_give_LoveLetter:      "give i_LoveLetter:1"
+  e_startObj_OpenLetter:  "objective add o_openLetter"
+  j_add_desc:             "journal add questDesc"
+
+  # Open Letter
+  e_openLetter:           "folder e_take_LoveLetter,chat_NoPrivacy,e_giveNudes,tag_add_ALL_Opened"
+  e_take_LoveLetter:      "take i_LoveLetter:1"
+  chat_NoPrivacy:         "command broadcast &6%player% &4has no respect for privacy!"
+  e_giveNudes:            "give i_N1:1,i_N2:1,i_N3:1,i_N4:1,i_N5:1,i_N6:1,i_N7:1,i_N8:1,i_N9:1,i_N10:1,i_N11:1,i_N12:1,i_N13:1,i_N14:1,i_N15:1,i_N16:1"
+  tag_add_ALL_Opened:     "tag add ALL_Opened"
+
+  # Quest Failed
+  e_QuestFailed:          "folder e_text_QuestFail,e_sound_QuestFail,e_Cleanup"
+  e_text_QuestFail:       "notify &4Quest failed..\nTalk to &2Girlfriend&4 to restart the quest io:title"
+  e_sound_QuestFail:      "notify io:sound sound:entity.blaze.death soundpitch:0.5"
+
+  # Cleanup
+  e_Cleanup:              "folder e_delObj_OpenLetter,tag_del_QuestStarted,tag_del_LetterOpened,e_take_LoveLetter,e_take_Nudes,j_del_desc"
+  e_delObj_OpenLetter:    "objective remove o_openLetter"
+  tag_del_QuestStarted:   "tag del ALL_Start"
+  tag_del_LetterOpened:   "tag del ALL_Opened"
+  e_take_LoveLetter:      "take i_LoveLetter:1"
+  e_take_Nudes:           "take i_N1:1,i_N2:1,i_N3:1,i_N4:1,i_N5:1,i_N6:1,i_N7:1,i_N8:1,i_N9:1,i_N10:1,i_N11:1,i_N12:1,i_N13:1,i_N14:1,i_N15:1,i_N16:1"
+  j_del_desc:             "journal delete questDesc"
+  e_killPlayer:           "kill"
+
+  # Quest Complete
+  e_QuestCompleteDie:     "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,tag_add_ALL_Complete,e_Cleanup,chat_QuestComplete,e_addScore,e_killPlayer"
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,tag_add_ALL_Complete,e_Cleanup,chat_QuestComplete,e_addScore"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aA Love Letter io:title"
+  e_text_QuestComplete_2: "notify &aA_Love_Letter io:advancement frame:challenge icon:diamond"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  tag_add_ALL_Complete:   "tag add ALL_Complete"
+  chat_QuestComplete:     "command broadcast &6%player% &2completed the quest: A Love Letter"
+  e_addScore:             "score quests 1 action:add"
+
+
+conditions:
+  chk_QuestStarted:       "tag ALL_Start"
+  chk_LetterOpened:       "tag ALL_Opened"
+  chk_QuestComplete:      "tag ALL_Complete"
+  chk_HoldingLetter:      "hand i_LoveLetter"
+
+journal:
+  questDesc:
+    en: "ALL: &2Girlfriend&0 located in &2Littledew&0 has asked you to give a love letter to her boyfriend in &2Linedale&0."
+
+objectives:
+  o_openLetter:           "action right any conditions:chk_HoldingLetter events:e_openLetter"
+
+items:
+  i_QuestToken:           "minecraft:sunflower name:&6#28_A_Love_Letter lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_LoveLetter:           "minecraft:paper name:&6Love_Letter lore:&5Don't_Open;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N1:                   "minecraft:paper name:&6Girlfriend_Nude_1 lore:&5Honkers;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N2:                   "minecraft:paper name:&6Girlfriend_Nude_2 lore:&5Buttocks;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N3:                   "minecraft:paper name:&6Girlfriend_Nude_3 lore:&5CENSOR;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N4:                   "minecraft:paper name:&6Girlfriend_Nude_4 lore:&5Honkers;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N5:                   "minecraft:paper name:&6Girlfriend_Nude_5 lore:&5CENSOR;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N6:                   "minecraft:paper name:&6Girlfriend_Nude_6 lore:&5Honkers;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N7:                   "minecraft:paper name:&6Girlfriend_Nude_7 lore:&5V;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N8:                   "minecraft:paper name:&6Girlfriend_Nude_8 lore:&5Honkers;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N9:                   "minecraft:paper name:&6Girlfriend_Nude_9 lore:&5V;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N10:                  "minecraft:paper name:&6Girlfriend_Nude_10 lore:&5Peen;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N11:                  "minecraft:paper name:&6Girlfriend_Nude_11 lore:&5uttocks;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N12:                  "minecraft:paper name:&6Girlfriend_Nude_12 lore:&5uttocks;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N13:                  "minecraft:paper name:&6Girlfriend_Nude_13 lore:&5CENCOR;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N14:                  "minecraft:paper name:&6Girlfriend_Nude_14 lore:&5Honkers;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N15:                  "minecraft:paper name:&6Girlfriend_Nude_15 lore:&5CENCOR;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_N16:                  "minecraft:paper name:&6Girlfriend_Nude_16 lore:&5Honkers;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"

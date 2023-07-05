@@ -1,0 +1,325 @@
+# NPC_QuestGiver: Amongus
+
+npcs:
+  '27': "main"
+  '31': "npc1"
+  '32': "npc2"
+  '33': "npc3"
+
+variables:
+  village:  "Riverkeep"
+
+conversations:
+  main:
+    quester: "Imposter"
+    first: welcome_Complete,welcome_Found_3,welcome_Found_2,welcome_Found_1,welcome_Found_0,welcome_StartQuest
+
+    NPC_options:
+      # Quest Start
+      welcome_StartQuest:
+        text: "They've hidden from me.. I don't get this.. why won't anyone like me..\n\nCan you help me find them? They are here in $village$, and they 
+              look just like me. There are 3 others."
+        pointer: pyes,pno
+      start:
+        text: "They won't survi.. *cough* ..be hidden for long I mean.."
+        event: e_QuestStart
+      refuse:
+        text: "Silly little human..!"
+      
+      # Found 0
+      welcome_Found_0:
+        conditions: chk_QuestActive
+        text: "Keep looking.. they are out there, somewhere."
+
+      # Found 1
+      welcome_Found_1:
+        conditions: chk_Found_One
+        text: "You've only found 1?! I need more.............. friends."
+
+      # Found 2
+      welcome_Found_2:
+        conditions: chk_Found_Two
+        text: "Two won't do it. Find me the last one!"
+
+      # Found 3
+      welcome_Found_3:
+        conditions: chk_Found_All
+        text: "Hmm\nWould you look at that. All 3 targets.."
+        pointer: pyup
+      found_all:
+        text: "You've been a great help '%player.name%'.\nTake this."
+        pointer: cool
+      leave:
+        text: "..and leave. Quickly!"
+        event: e_QuestComplete
+
+      # Quest Complete
+      welcome_Complete:
+        conditions: chk_QuestComplete
+        text: "Leave! I have.. business to attend to.."
+    
+    player_options:
+      # Quest Start
+      pyes:
+        text: "I'll find the oth.. imposters I mean.."
+        pointer: start
+        #start
+      pno:
+        text: "No.. You're the imposter!"
+        pointer: refuse
+        #exit
+      # Found 3
+      pyup:
+        text: "Yup"
+        pointer: found_all
+      cool:
+        text: "Cool"
+        pointer: leave
+        
+  
+  npc1:
+    quester: "Amogus #1"
+    first: harmed,helped,notStarted,started
+
+    NPC_options:
+      notStarted:
+        conditions: "!chk_QuestActive"
+        text: "Shh, he's out there.. somewhere.."
+        #exit
+
+      # Not found
+      started:
+        conditions: "!chk_Help_1,!chk_Harm_1"
+        text: "Please don't give up my location"
+        pointer: iWill,iWont
+      harm:
+        text: "You !#?£%#, I will hunt you down."
+        event: e_harm_NPC_1
+      help:
+        text: "Oh tank God. Take this."
+        event: e_help_NPC_1
+
+      # Helped
+      helped:
+        conditions: chk_Help_1
+        text: "Please go before he finds me."
+        #exit
+
+      # Harmed
+      harmed:
+        conditions: chk_Harm_1
+        text: "You !#?£%# I will hunt you down."
+        #exit
+      
+    player_options:
+      # Not found
+      iWill:
+        text: "You're going down"
+        pointer: harm
+      iWont:
+        text: "Relax, I won't"
+        pointer: help
+
+  npc2:
+    quester: "Amogus #2"
+    first: harmed,helped,notStarted,started
+
+    NPC_options:
+      notStarted:
+        conditions: "!chk_QuestActive"
+        text: "It's not me! I promise!"
+        #exit
+
+      # Not found
+      started:
+        conditions: "!chk_Help_2,!chk_Harm_2"
+        text: "Please don't give up my location"
+        pointer: iWill,iWont
+      harm:
+        text: "You !#?£%#, I will hunt you down."
+        event: e_harm_NPC_2
+      help:
+        text: "Oh tank God. Take this."
+        event: e_help_NPC_2
+
+      # Helped
+      helped:
+        conditions: chk_Help_2
+        text: "Please go before he finds me."
+        #exit
+
+      # Harmed
+      harmed:
+        conditions: chk_Harm_2
+        text: "You !#?£%#, I will hunt you down."
+        #exit
+      
+    player_options:
+      # Not found
+      iWill:
+        text: "You're going down"
+        pointer: harm
+      iWont:
+        text: "Relax, I won't"
+        pointer: help
+
+  npc3:
+    quester: "Amogus #3"
+    first: harmed,helped,notStarted,started
+
+    NPC_options:
+      notStarted:
+        conditions: "!chk_QuestActive"
+        text: "Look elsewhere '%player.name%'"
+        #exit
+
+      # Not found
+      started:
+        conditions: "!chk_Help_3,!chk_Harm_3"
+        text: "Please don't give up my location"
+        pointer: iWill,iWont
+      harm:
+        text: "You !#?£%#, I will hunt you down."
+        event: e_harm_NPC_3
+      help:
+        text: "Oh tank God. Take this."
+        event: e_help_NPC_3
+
+      # Helped
+      helped:
+        conditions: chk_Help_3
+        text: "Please go before he finds me."
+        #exit
+
+      # Harmed
+      harmed:
+        conditions: chk_Harm_3
+        text: "You !#?£%#,, I will hunt you down."
+        #exit
+      
+    player_options:
+      # Not found
+      iWill:
+        text: "You're going down"
+        pointer: harm
+      iWont:
+        text: "Relax, I won't"
+        pointer: help
+
+
+events:
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,tag_add_HTI_Start,e_fol_startObjNpc,j_add_desc"
+  e_text_QuestStart:      "notify &6Quest Started\n&aHelping The Imposter io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  tag_add_HTI_Start:      "tag add HTI_Start"
+  j_add_desc:             "journal add questDesc"
+
+  e_fol_startObjNpc:      "folder e_startObj_Npc1,e_startObj_Npc2,e_startObj_Npc3"
+  e_startObj_Npc1:        "objective add o_npc_FindNpc1"
+  e_startObj_Npc2:        "objective add o_npc_FindNpc2"
+  e_startObj_Npc3:        "objective add o_npc_FindNpc3"
+
+  # Helping or Harming NPCs
+  # Harm
+  e_dmg_Player_4:         "damage 4"
+  e_burn_Player_2:        "burn duration:2"
+  e_pot_Blind_5:          "effect BLINDNESS 5 1 hidden icon"
+  e_pot_Naus_10:          "effect CONFUSION 10 1 hidden icon"
+  e_harm_random:          "pickrandom 25%e_dmg_Player_4,25%e_burn_Player_2,25%e_pot_Blind_5,25%e_pot_Naus_10"
+  # Help
+  e_giveReward:           "give i_Reward_1:1"
+
+
+  # Found NPC 1
+  e_fol_FoundNpc1:        "folder tag_add_HTI_FoundNpc1"
+  tag_add_HTI_FoundNpc1:  "tag add HTI_Found_NPC_1"
+  # Harm NPC 1
+  e_harm_NPC_1:           "folder tag_add_HTI_Harm_1,e_harm_random"
+  tag_add_HTI_Harm_1:     "tag add HTI_Harm_NPC_1"
+  # Help NPC 1
+  e_help_NPC_1:           "folder tag_add_HTI_Help_1,e_giveReward"
+  tag_add_HTI_Help_1:     "tag add HTI_Help_NPC_1"
+
+  # Found NPC 2
+  e_fol_FoundNpc2:        "folder tag_add_HTI_FoundNpc2"
+  tag_add_HTI_FoundNpc2:  "tag add HTI_Found_NPC_2"
+  # Harm NPC 2
+  e_harm_NPC_2:           "folder tag_add_HTI_Harm_2,e_harm_random"
+  tag_add_HTI_Harm_2:     "tag add HTI_Harm_NPC_2"
+  # Help NPC 2
+  e_help_NPC_2:           "folder tag_add_HTI_Help_2,e_giveReward"
+  tag_add_HTI_Help_2:     "tag add HTI_Help_NPC_2"
+
+  # Found NPC 3
+  e_fol_FoundNpc3:        "folder tag_add_HTI_FoundNpc3"
+  tag_add_HTI_FoundNpc3:  "tag add HTI_Found_NPC_3"
+  # Harm NPC 3
+  e_harm_NPC_3:           "folder tag_add_HTI_Harm_3,e_harm_random"
+  tag_add_HTI_Harm_3:     "tag add HTI_Harm_NPC_3"
+  # Help NPC 3
+  e_help_NPC_3:           "folder tag_add_HTI_Help_3,e_giveReward"
+  tag_add_HTI_Help_3:     "tag add HTI_Help_NPC_3"
+  
+
+  # Quest complete
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,e_give_AmongusHead,tag_add_HTI_Complete,e_Cleanup,chat_QuestComplete,e_addScore"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aHelping The Imposter io:title"
+  e_text_QuestComplete_2: "notify &aHelpingTheImposter io:advancement frame:challenge icon:diamond"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  e_give_AmongusHead:     'command minecraft:give %player% minecraft:player_head{SkullOwner:{Id:[I;804963407,-2089592502,-1419761998,-277833173],Properties:{textures:[{Value:"e3RleHR1cmVzOntTS0lOOnt1cmw6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmM1ZmZkMjYyZWMyY2MyNTE2ZmQwZmY3MmFkNGEwOTBkMTE5YmMzMzkwYzE1OTQ2YTQ2NjM3NDAwNTQ0YjA4MyJ9fX0="}]}},display:{Name:"[{\"text\":\"Amongus Head\",\"italic\":false}]",Lore:["{\"text\":\"Now you are the imposter\"}"]}}'
+  tag_add_HTI_Complete:   "tag add HTI_Complete"
+  chat_QuestComplete:     "command broadcast &6%player% &2completed the quest: Helping The Imposter"
+  e_addScore:             "score quests 1 action:add"
+
+  # Cleanup
+  e_Cleanup:              "folder tag_del_HTI_Start,tag_del_HTI_FoundNpc1,tag_del_HTI_FoundNpc2,tag_del_HTI_FoundNpc3,j_del_desc"
+  tag_del_HTI_Start:      "tag del HTI_Start"
+  tag_del_HTI_FoundNpc1:  "tag del HTI_Found_NPC_1"
+  tag_del_HTI_FoundNpc2:  "tag del HTI_Found_NPC_2"
+  tag_del_HTI_FoundNpc3:  "tag del HTI_Found_NPC_3"
+  j_del_desc:             "journal delete questDesc"
+  #e_Cleanup_NPC:          "folder tag_del_HTI_Help_1,tag_del_HTI_Help_2,tag_del_HTI_Help_3,tag_del_HTI_Harm_1,tag_del_HTI_Harm_2,tag_del_HTI_Harm_3"
+  #tag_del_HTI_Help_1:     "tag del HTI_Help_NPC_1"
+  #tag_del_HTI_Help_2:     "tag del HTI_Help_NPC_2"
+  #tag_del_HTI_Help_3:     "tag del HTI_Help_NPC_3"
+  #tag_del_HTI_Harm_1:     "tag del HTI_Harm_NPC_1"
+  #tag_del_HTI_Harm_2:     "tag del HTI_Harm_NPC_2"
+  #tag_del_HTI_Harm_3:     "tag del HTI_Harm_NPC_3"
+
+conditions:
+  chk_QuestActive:        "tag HTI_Start"
+  chk_QuestComplete:      "tag HTI_Complete"
+
+  # Finding the NPCs
+  chk_Found_1:            "tag HTI_Found_NPC_1"
+  chk_Found_2:            "tag HTI_Found_NPC_2"
+  chk_Found_3:            "tag HTI_Found_NPC_3"
+
+  chk_Found_One:          "or chk_Found_1,chk_Found_2,chk_Found_3"
+  chk_Found_Two_1:        "and chk_Found_1,chk_Found_2,!chk_Found_3"
+  chk_Found_Two_2:        "and chk_Found_1,!chk_Found_2,chk_Found_3"
+  chk_Found_Two_3:        "and !chk_Found_1,chk_Found_2,chk_Found_3"
+  chk_Found_Two:          "or chk_Found_Two_1,chk_Found_Two_2,chk_Found_Two_3"
+  chk_Found_All:          "and chk_Found_1,chk_Found_2,chk_Found_3"
+
+  # Interacting with the NPCs
+  chk_Help_1:             "tag HTI_Help_NPC_1"
+  chk_Help_2:             "tag HTI_Help_NPC_2"
+  chk_Help_3:             "tag HTI_Help_NPC_3"
+  chk_Harm_1:             "tag HTI_Harm_NPC_1"
+  chk_Harm_2:             "tag HTI_Harm_NPC_2"
+  chk_Harm_3:             "tag HTI_Harm_NPC_3"
+
+objectives:
+  o_npc_FindNpc1:         "npcinteract 31 events:e_fol_FoundNpc1"
+  o_npc_FindNpc2:         "npcinteract 32 events:e_fol_FoundNpc2"
+  o_npc_FindNpc3:         "npcinteract 33 events:e_fol_FoundNpc3"
+
+journal:
+  questDesc:
+    en: "HTI: The &2Imposter&0 located in &2Riverkeep&0 has asked you to locate his 3 'friends'."
+
+items:
+  i_QuestToken:           "minecraft:sunflower name:&6#3_Helping_The_Imposter lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_Reward_1:             "minecraft:experience_bottle"

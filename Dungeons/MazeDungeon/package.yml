@@ -1,0 +1,54 @@
+npcs:
+  '72':   "mrsloot"
+
+conversations:
+  mrsloot:
+    quester: "Mrs. Loot"
+    first: alreadyLooted,giveloot
+
+    NPC_options:
+      # Giving loot
+      giveloot:
+        conditions: "!chk_gotLoot"
+        text: "Mazes remind us that sometimes we must embrace the journey itself, for the destination is only as fulfilling as the path we took to get there.\n\nYou have earned your reward."
+        pointer: getreward
+      rewardlist:
+        text: "1x  Potion of Switfness (8:00)\n64x Bottle o' Enchanting\n1x  Diamond Ore\n2x  Frogspawn\n1x  Dungeon Token"
+        event: e_CompleteDungeon
+        #exit
+
+      # Already looted
+      alreadyLooted:
+        conditions: "chk_gotLoot"
+        text: "You already got your share!"
+        #exit
+
+
+    player_options:
+      # Giving loot
+      getreward:
+        text: "..."
+        pointer: rewardlist
+
+
+events:
+  # Give reward
+  e_CompleteDungeon:        "folder e_text_DungeonComplete,e_text_DungeonComplete_2,tag_add_looted,chat_DungeonComplete,e_loot,e_addScore"
+  e_text_DungeonComplete:   "notify &aDungeon Complete\n&aMaze io:title"
+  e_text_DungeonComplete_2: "notify &aMaze_Dungeon io:advancement frame:challenge icon:diamond"
+  tag_add_looted:           "tag add MD_Looted"
+  chat_DungeonComplete:     "command broadcast &6%player% &2completed the Maze Dungeon"
+  e_loot:                   "give i_potion:1,i_expBtl:64,i_diamond_ore:1,i_frogspawn:2,i_DungeonToken"
+  e_addScore:               "score quests 1 action:add"
+
+
+conditions:
+  chk_gotLoot:              "tag MD_Looted"
+
+
+items:
+  i_potion:                 "minecraft:potion type:SPEED extended"
+  i_expBtl:                 "minecraft:experience_bottle"
+  i_diamond_ore:            "minecraft:deepslate_diamond_ore"
+  i_frogspawn:              "minecraft:frogspawn"
+  i_DungeonToken:           "minecraft:sunflower name:&6#10_Maze_Dungeon lore:&5Dungeon_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"

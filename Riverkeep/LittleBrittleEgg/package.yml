@@ -1,0 +1,185 @@
+# NPC_QuestGiver: Annora
+# NPC_Deliver:    Kenric
+# Location:       Borecrest
+
+npcs:
+  '23': "annora"
+  '24': "kenric"
+
+variables:
+  npc1:     "Annora"
+  npc2:     "Kenric"
+  village:  "Borecrest"
+
+conversations:
+  annora:
+    quester: "$npc1$"
+    first: welcome_QuestComplete,welcome_StartQuest,welcome_QuestActive,welcome_EggBroke
+
+    NPC_options:
+      # Default
+      goodbye:
+        text: "Goodbye."
+
+      # Quest Start
+      welcome_StartQuest:
+        text: "Greetings. I'm in quite a pickle. You see, I was on my way to deliever this turtle egg to &2$npc2$&r in $village$, but i sprained my ankle. 
+              I'm afraid if I try to take them myself, they might break."
+        conditions: "!chk_QuestStarted"
+        pointer: whatIsTurtleEggs
+      turtleEggsAre:
+        text: "They're small and speckled with brown and green spots. They're quite delicate, so be careful with them. 
+              Would you be willing to deliever them to &2$npc2$&r for me? He's expecting them and I promised I'd get them to him as soon as possible."
+        pointer: iCanHelp,iWontHelp
+      canHelp:
+        text: "Wonderful! He's in $village$ with is north-east from here. Just follow the path and you'll find it. 
+              &2$npc2$&r is a kind man and will suresly reward you for your trouble."
+        pointer: illTakeTheEggs
+      giveEggs:
+        text: "Thank you so much! Here, take this egg and be careful with them.\n\nBtw, You'll get there faster by riding a horse."
+        event: e_QuestStart
+        # exit
+      takeCare:
+        text: "Take Care."
+        # exit
+
+      # Quest Active
+      welcome_QuestActive:
+        text: "Thank you for helping me out."
+        conditions: "!chk_EggBroke"
+        pointer: whereToGo,noProblem
+      kenricIsHere:
+        text: "&2$npc2$&r is in $village$, north-west from here. Just follow the path."
+        # exit
+
+      # Egg broke
+      welcome_EggBroke:
+        text: "Thank you for helping me out."
+        pointer: theEggBroke
+      whatEggbroke:
+        text: "What?..\nWell lucky for you I do have another one. Please take extra care of this, thank you."
+        pointer: extraCareful
+
+      # Quest complete
+      welcome_QuestComplete:
+        text: "I hear &2$npc2$&r was happy to get his turtle egg."
+        conditions: "chk_QuestComplete"
+        # exit
+      
+
+    player_options:
+      # Quest Start
+      whatIsTurtleEggs:
+        text: "Turtle eggs? I've never heard of them."
+        pointer: turtleEggsAre
+      iCanHelp:
+        text: "Sure, I can help."
+        pointer: canHelp
+      iWontHelp:
+        text: "I don't have time."
+        pointer: takeCare
+
+      # Quest Active
+      illTakeTheEggs:
+        text: "Alright, I'll deliver the egg to &2$npc2$&r for you. I hope it doesn't break on the way there."
+        pointer: giveEggs
+
+      whereToGo:
+        text: "I forgot where to go."
+        pointer: kenricIsHere
+      noProblem:
+        text: "No problem."
+        pointer: goodbye
+        # exit
+
+      # Egg broke
+      theEggBroke:
+        text: "Uhm.. the egg broke.."
+        pointer: whatEggbroke
+      extraCareful:
+        text: "I'll be extra careful this time."
+        event: e_QuestAnotherEgg
+        pointer: goodbye
+        # exit
+  
+  kenric:
+    quester: "$npc2$"
+    first: welcome_QuestActive,welcome_NoQuest
+
+    NPC_options:
+      # No Quest
+      welcome_NoQuest:
+        text: "Ah, the turtles, such fascinating creatures. I could spend hours talking about their unique shells and nesting habits."
+
+      # Quest Active
+      welcome_QuestActive:
+        text: "Have you seen &2$npc1$&r? She should have been here by now.."
+        conditions: "chk_QuestStarted,!chk_EggBroke"
+        pointer: iHasEgg
+      gaveTurtleEgg:
+        text: "Oh, thank you!\n&2$npc1$&r strained her ankle? That's unfortunate. Well thank you for delivering the egg. Here, take this as a token of my gratitude."
+        pointer: eggDelivered
+
+    player_options:
+      iHasEgg:
+        text: "Here, the turtle egg."
+        pointer: gaveTurtleEgg
+      eggDelivered:
+        text: "Thanks!"
+        event: e_QuestComplete
+
+
+events:
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,e_give_BrittleEgg,tag_add_LBE_Start,tag_del_LBE_Break,e_startObj_Jump,j_add_desc"
+  e_text_QuestStart:      "notify &6Quest Started\n&aLittle Brittle Egg io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  e_give_BrittleEgg:      "give i_BrittleEgg:1"
+  e_startObj_Jump:        "objective add o_jump_DontJump"
+  tag_add_LBE_Start:      "tag add LBE_Start"
+  j_add_desc:             "journal add questDesc"
+
+  # Another egg
+  e_QuestAnotherEgg:      "folder e_give_BrittleEgg,tag_add_LBE_Start,tag_del_LBE_Break,e_startObj_Jump"
+
+  # Quest Fail
+  e_QuestFail:            "folder e_text_QuestFail,e_sound_EggBreak,e_take_BrittleEgg,tag_add_LBE_Break"
+  e_text_QuestFail:       "notify &4The egg broke! io:subtitle"
+  e_sound_EggBreak:       "notify io:sound sound:entity.turtle.egg_break"
+  e_take_BrittleEgg:      "take i_BrittleEgg:1"
+  tag_add_LBE_Break:      "tag add LBE_EggBroke"
+
+  # Quest Complete
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_Reward,e_give_QuestToken,e_Cleanup,tag_add_LBE_Complete,chat_QuestComplete,e_addScore"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aLittle Brittle Egg io:title"
+  e_text_QuestComplete_2: "notify &aLittleBrittleEgg io:advancement frame:challenge icon:diamond"
+  e_give_Reward:          "give i_RewardHelmet:1"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  tag_add_LBE_Complete:   "tag add LBE_Complete"
+  chat_QuestComplete:     "command broadcast &6%player% &2completed the quest: Little Brittle Egg"
+  e_addScore:             "score quests 1 action:add"
+
+  # Reset
+  e_Cleanup:              "folder tag_del_LBE_Start,tag_del_LBE_Break,e_delObj_Jump,e_take_BrittleEgg,j_del_desc"
+  tag_del_LBE_Start:      "tag del LBE_Start"
+  tag_del_LBE_Break:      "tag del LBE_EggBroke"
+  e_delObj_Jump:          "objective remove o_jump_DontJump"
+  j_del_desc:             "journal delete questDesc"
+
+
+conditions:
+  chk_QuestStarted:       tag LBE_Start
+  chk_EggBroke:           tag LBE_EggBroke
+  chk_QuestComplete:      tag LBE_Complete
+
+objectives:
+  o_jump_DontJump:        "jump 1 events:e_QuestFail"
+
+journal:
+  questDesc:
+    en: "LBE: &2Annora&0 located in &2Riverkeep&0 has asked you to bring an egg to her friend &2Kenric&0 located in &2Borecrest&0."
+
+items:
+  i_BrittleEgg:           "minecraft:turtle_egg lore:$npc2$'s_Egg;&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_QuestToken:           "minecraft:sunflower name:&6#1_Little_Brittle_Egg lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_RewardHelmet:         "minecraft:turtle_helmet name:$npc2$'s_Helmet lore:&5Not_as_brittle"

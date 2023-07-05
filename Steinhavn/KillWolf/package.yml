@@ -1,0 +1,175 @@
+# NPC_QuestGiver: Rotheart
+# Location:       Steinhavn
+
+npcs:
+  '56': "rotheart"
+
+variables:
+  npc1:     "Rotheart"
+  npc2:     "Shiver"
+  npc3:     "Black"
+
+conversations:
+  rotheart:
+    quester: "Rotheart"
+    first: QLC,welcome_QuestComplete,welcome_NotAvailable,welcome_QuestDeliver,welcome_QuestActive,welcome_StartQuest
+
+    NPC_options:
+      # Quest line complete
+      QLC:
+        conditions: "chk_QuestLineComplete"
+        text: "Greetings fellow revenant."
+
+      # Quest Complete
+      welcome_QuestComplete:
+        conditions: "chk_QuestComplete"
+        text: "You're done here."
+        #exit
+
+      # Not Available
+      welcome_NotAvailable:
+        conditions: "!chk_HasVSComplete"
+        text: "You have no business here. Your loyalty has yet to be proven. Talk to &2$npc2$&r"
+        #exit
+
+      # Start Quest
+      welcome_StartQuest:
+        text: "The apprentice has arrived."
+        pointer: firstmeet
+      canijoin:
+        text: "Patience kid, patience."
+        pointer: nopatience
+      newtask:
+        text: "You've already completed your first task. Are you ready for the next one?"
+        pointer: isready,notready,howmanytasks
+      thismanytasks:
+        text: "You clearly aren't ready yet. Come back when you are."
+        #exit
+      pnotready:
+        text: "Disappointing.."
+        #exit
+      pready:
+        text: "I want you to &4kill&r 5 wolfs."
+        pointer: taskyes,taskno
+      yessir:
+        text: "Talk to me when you're done."
+        pointer: pgetquest
+
+      # Quest Active
+      welcome_QuestActive:
+        conditions: "chk_QuestStarted,!chk_KilledWolfs"
+        text: "You haven't killed all the wolfs yet.\nYou still need to kill %objective.o_kill_Wolfs.left% more."
+        #exit
+
+      # Quest Deliver
+      welcome_QuestDeliver:
+        conditions: "chk_QuestStarted,chk_KilledWolfs"
+        text: "Great work. Consider yourself a little closer to becoming a true necromancer of the Revenant Society."
+        pointer: deliverno,deliveryes
+      ilikethis:
+        text: "That's the true spirit of our society.\n\nTalk to &2$npc3$&r for your next task.\nIn the meantime, 
+               take this as a token of your great work."
+        pointer: donethanks
+      questfail:
+        text: "THIS ATTITUDE IS UNACCEPTABLE."
+        event: e_QuestFailed
+
+    player_options:
+      # Start Quest
+      firstmeet:
+        text: "Can I join your clan now?"
+        pointer: canijoin
+      nopatience:
+        text: "..."
+        pointer: newtask
+      isready:
+        text: "Yes, sir."
+        pointer: pready
+      notready:
+        text: "No!"
+        pointer: pnotready
+      howmanytasks:
+        text: "Dude, how many tasks do I have to do?"
+        pointer: thismanytasks
+      taskyes:
+        text: "Bro.."
+        pointer: thismanytasks
+      taskno:
+        text: "Yes, sir."
+        pointer: yessir
+      pgetquest:
+        text: "Ok."
+        event: e_QuestStart
+
+      # Quest Delivery
+      deliveryes:
+        text: "This is so much fun!"
+        pointer: ilikethis
+      deliverno:
+        text: "I don't like what I'm doing.."
+        pointer: questfail
+        #quest failed
+        #exit
+      donethanks:
+        text: "Thank you."
+        event: e_QuestComplete
+        #quest complete
+        #exit
+
+
+        
+      
+events:
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,tag_add_RSWS_Start,e_startObj_KW,j_add_desc"
+  e_text_QuestStart:      "notify &6Quest Started\n&aRevenant Society: Wolf Slayer io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  tag_add_RSWS_Start:     "tag add RSWS_Start"
+  e_startObj_KW:          "objective add o_kill_Wolfs"
+  j_add_desc:             "journal add questDesc"
+
+  # Objective Complete: Wolf kills
+  e_ObjectiveKW:          "folder tag_add_RSWS_Killed"
+  tag_add_RSWS_Killed:    "tag add RSWS_Killed"
+
+  # Quest Failed:
+  e_QuestFailed:          "folder e_text_QuestFail,e_sound_QuestFail,e_Cleanup"
+  e_text_QuestFail:       "notify &4Quest Failed\n&4Revenant Society: Wolf Slayer io:title"
+  e_sound_QuestFail:      "notify io:sound sound:entity.blaze.death soundpitch:0.5"
+
+  # Quest Complete:
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,e_give_QuestReward,e_Cleanup,tag_add_RSWS_Complete,e_exp_Give,chat_QuestComplete,e_addScore"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aRevenant Society: Wolf Slayer io:title"
+  e_text_QuestComplete_2: "notify &aRevenantSociety-WolfSlayer io:advancement frame:challenge icon:diamond"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  e_give_QuestReward:     "give i_BoneSword:1"
+  tag_add_RSWS_Complete:  "tag add RSWS_Complete"
+  e_exp_Give:             "experience 3 action:addLevel"
+  chat_QuestComplete:     "command broadcast &6%player% &2completed the quest: Revenant Society: Wolf Slayer"
+  e_addScore:             "score quests 1 action:add"
+
+  # Reset
+  e_Cleanup:              "folder tag_del_RSWS_Start,tag_del_RSWS_Killed,e_delObj_KW,j_del_desc"
+  tag_del_RSWS_Start:     "tag del RSWS_Start"
+  tag_del_RSWS_Killed:    "tag del RSWS_Killed"
+  e_delObj_KW:            "objective remove o_kill_Wolfs"
+  j_del_desc:             "journal delete questDesc"
+
+
+conditions:
+  chk_HasVSComplete:      "tag Steinhavn-KillVillager.RSVS_Complete"
+  chk_QuestStarted:       "tag RSWS_Start"
+  chk_KilledWolfs:        "tag RSWS_Killed"
+  chk_QuestComplete:      "tag RSWS_Complete"
+  chk_QuestLineComplete:  "tag Steinhavn-KillPlayer.RSPS_Complete"
+
+objectives:
+  o_kill_Wolfs:           "mobkill WOLF 5 notify events:e_ObjectiveKW"
+
+journal:
+  questDesc:
+    en: "RSWS: &2Rotheart&0 located in &2Steinhavn&0 has asked you to slay 5 wolfs."
+
+items:
+  i_QuestToken:           "minecraft:sunflower name:&6#6_Revenant_Society:_Wolf_Slayer lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_BoneSword:            "minecraft:bone name:Calcium_Stick lore:&5Extracted_from_wolfs enchants:DAMAGE_ALL:6,KNOCKBACK:2"

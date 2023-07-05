@@ -1,0 +1,147 @@
+npcs:
+  '108': "hank"
+
+conversations:
+  hank:
+    quester: "Hank"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "It's a tough world out there... Hank, Hank's the name.\nI reclaim tokens from lost souls.\nThe price is &21 Emerald&r."
+        pointer: quest,tingle,dungeon,kiss,punch
+      noemerald:
+        text: "No emeralds, no tokens.\n\nI  don't  work  for  free."
+        #exit
+      givequesttokens:
+        conditions: "chk_HasEmerald"
+        text: "Keep 'em safe this time."
+        event: e_GiveQuestTokens
+        #exit
+      givetingletokens:
+        conditions: "chk_HasEmerald"
+        text: "Keep 'em safe this time."
+        event: e_GiveTingleTokens
+        #exit
+      givedungeonstokens:
+        conditions: "chk_HasEmerald"
+        text: "Keep 'em safe this time."
+        event: e_GiveDungeonTokens
+        #exit
+      kiss2:
+        text: "*Smooch* ... *unzips pa..*"
+        event: e_Kiss
+        #exit
+      punch2:
+        text: "&4CALM DOWN!"
+        event: e_Punch
+        #exit
+      
+
+    player_options:
+      quest:
+        text: "Quest Tokens"
+        pointer: givequesttokens,noemerald
+      tingle:
+        text: "Tingle Tokens"
+        pointer: givetingletokens,noemerald
+      dungeon:
+        text: "Dungeon Tokens"
+        pointer: givedungeonstokens,noemerald
+      kiss:
+        text: "*Kiss*"
+        pointer: kiss2
+      punch:
+        text: "*Punch*"
+        pointer: punch2
+
+
+events:
+  # Kiss
+  e_Kiss:                   "folder chat_Kiss,e_loveParticles"
+  chat_Kiss:                "command broadcast &6%player% &2kissed Hank on the lips.. <3"
+  e_loveParticles:          "command particle minecraft:heart %location.xyz% 0.5 2 0.5 0.2 6 normal"
+
+  #e_Punch:                  "folder chat_Punch,e_killPlayer"
+  e_Punch:                  "folder chat_Punch,e_velocity delay:1"
+  chat_Punch:               "command broadcast &6%player% &2punched Hank on the lips.. </3"
+  e_killPlayer:             "kill"
+  e_velocity:               "velocity vector:(0;2;-10) direction:relative modification:add"
+
+  # Overall
+  e_takeEmerald:            "take i_Emerald:1"
+
+  # Quests
+  e_GiveQuestTokens:        "folder e_takeEmerald,e_GQ_GMB,e_GQ_ALL,e_GQ_GMC,e_GQ_HTI,e_GQ_LBE,e_GQ_BUI,e_GQ_TGT,e_GQ_RSI,e_GQ_RSVS,e_GQ_RSWS,e_GQ_RSPS"
+  # Tokens
+  e_GQ_GMB:                 "give Borecrest-GrannysLostItems.i_QuestToken:1 conditions:Borecrest-GrannysLostItems.chk_QuestComplete,!c8"                  #8
+  e_GQ_ALL:                 "give LittleDew-LoveLetter.i_QuestToken:1 conditions:LittleDew-LoveLetter.chk_QuestComplete,!c28"                             #28
+  e_GQ_GMC:                 "give Newledge-GrannysMessyChests.i_QuestToken:1 conditions:Newledge-GrannysMessyChests.chk_QuestCompleted,!c2"               #2
+  e_GQ_HTI:                 "give Riverkeep-Amongus.i_QuestToken:1 conditions:Riverkeep-Amongus.chk_QuestComplete,!c3"                                    #3
+  e_GQ_LBE:                 "give Riverkeep-LittleBrittleEgg.i_QuestToken:1 conditions:Riverkeep-LittleBrittleEgg.chk_QuestComplete,!c1"                  #1
+  e_GQ_BUI:                 "give Spawn-Info.i_QuestToken:1 conditions:Spawn-Info.chk_QuestComplete,!c13"                                                 #13
+  e_GQ_TGT:                 "give Spawn-Tutorial.i_QuestToken:1 conditions:Spawn-Tutorial.chk_QuestComplete,!c12"                                         #12
+  e_GQ_RSI:                 "give Wilderness-RevenantSociety-Starter.i_QuestToken:1 conditions:Wilderness-RevenantSociety-Starter.chk_QuestComplete,!c4"  #4
+  e_GQ_RSVS:                "give Steinhavn-KillVillager.i_QuestToken:1 conditions:Steinhavn-KillVillager.chk_QuestComplete,!c5"                          #5
+  e_GQ_RSWS:                "give Steinhavn-KillWolf.i_QuestToken:1 conditions:Steinhavn-KillWolf.chk_QuestComplete,!c6"                                  #6
+  e_GQ_RSPS:                "give Steinhavn-KillPlayer.i_QuestToken:1 conditions:Steinhavn-KillPlayer.chk_QuestComplete,!c7"                              #7
+
+  # Tingle
+  e_GiveTingleTokens:       "folder e_takeEmerald,e_GT_RK,e_GT_FE,e_GT_BC,e_GT_NL,e_GT_CH,e_GT_SH,e_GT_LD,e_GT_FF,e_GT_PP,e_GT_TH,e_GT_LD,e_GT_WR,e_GT_NW"
+  # Tokens
+  e_GT_RK:                  "give Global-Tingle.i_TokenRiverkeep:1 conditions:Global-Tingle.chk_found_riverkeep,!c14"                                     #14
+  e_GT_FE:                  "give Global-Tingle.i_TokenFrostedge:1 conditions:Global-Tingle.chk_found_frostedge,!c15"                                     #15
+  e_GT_BC:                  "give Global-Tingle.i_TokenBorecrest:1 conditions:Global-Tingle.chk_found_borecrest,!c16"                                     #16
+  e_GT_NL:                  "give Global-Tingle.i_TokenNewledge:1 conditions:Global-Tingle.chk_found_newledge,!c17"                                       #17
+  e_GT_CH:                  "give Global-Tingle.i_TokenCrownholm:1 conditions:Global-Tingle.chk_found_crownholm,!c18"                                     #18
+  e_GT_SH:                  "give Global-Tingle.i_TokenSteinhavn:1 conditions:Global-Tingle.chk_found_steinhavn,!c19"                                     #19
+  e_GT_LD:                  "give Global-Tingle.i_TokenLinedale:1 conditions:Global-Tingle.chk_found_linedale,!c20"                                       #20
+  e_GT_FF:                  "give Global-Tingle.i_TokenFungalflats:1 conditions:Global-Tingle.chk_found_fungalflats,!c21"                                 #21
+  e_GT_PP:                  "give Global-Tingle.i_TokenPufferport:1 conditions:Global-Tingle.chk_found_pufferport,!c22"                                   #22
+  e_GT_TH:                  "give Global-Tingle.i_TokenThrallhaven:1 conditions:Global-Tingle.chk_found_thrallhaven,!c23"                                 #23
+  e_GT_LD:                  "give Global-Tingle.i_TokenLittledew:1 conditions:Global-Tingle.chk_found_littledew,!c24"                                     #24
+  e_GT_WR:                  "give Global-Tingle.i_TokenWilderridge:1 conditions:Global-Tingle.chk_found_wilderridge,!c25"                                 #25
+  e_GT_NW:                  "give Global-Tingle.i_TokenNorwatch:1 conditions:Global-Tingle.chk_found_norwatch,!c26"                                       #26
+
+  # Dungeon
+  e_GiveDungeonTokens:      "folder e_takeEmerald,e_GD_MD,e_GD_SD,e_GD_PD,e_GD_WD"
+  # Tokens
+  e_GD_MD:                  "give Dungeons-MazeDungeon.i_DungeonToken:1 conditions:Dungeons-MazeDungeon.chk_gotLoot,!c10"                                 #10
+  e_GD_SD:                  "give Dungeons-SkyDungeon.i_DungeonToken:1 conditions:Dungeons-SkyDungeon.chk_gotLoot,!c11"                                   #11
+  e_GD_PD:                  "give Dungeons-SmaskesPuzzle.i_DungeonToken:1 conditions:Dungeons-SmaskesPuzzle.chk_gotLoot,!c27"                             #27
+  e_GD_WD:                  "give Dungeons-WaterDungeon.i_DungeonToken:1 conditions:Dungeons-WaterDungeon.chk_gotLoot,!c9"                                #9
+
+conditions:
+  chk_HasEmerald:           "item i_Emerald:1"
+
+  c1:                       "item Riverkeep-LittleBrittleEgg.i_QuestToken"                # Quest
+  c2:                       "item Newledge-GrannysMessyChests.i_QuestToken"               # Quest
+  c3:                       "item Riverkeep-Amongus.i_QuestToken"                         # Quest
+  c4:                       "item Wilderness-RevenantSociety-Starter.i_QuestToken"        # Quest
+  c5:                       "item Steinhavn-KillVillager.i_QuestToken"                    # Quest
+  c6:                       "item Steinhavn-KillWolf.i_QuestToken"                        # Quest
+  c7:                       "item Steinhavn-KillPlayer.i_QuestToken"                      # Quest
+  c8:                       "item Borecrest-GrannysLostItems.i_QuestToken"                # Quest
+  c9:                       "item Dungeons-WaterDungeon.i_DungeonToken"                   # Dungeon
+  c10:                      "item Dungeons-MazeDungeon.i_DungeonToken"                    # Dungeon
+  c11:                      "item Dungeons-SkyDungeon.i_DungeonToken"                     # Dungeon
+  c12:                      "item Spawn-Tutorial.i_QuestToken"                            # Quest
+  c13:                      "item Spawn-Info.i_QuestToken"                                # Quest
+  c14:                      "item Global-Tingle.i_TokenRiverkeep"                         # Tingle
+  c15:                      "item Global-Tingle.i_TokenFrostedge"                         # Tingle
+  c16:                      "item Global-Tingle.i_TokenBorecrest"                         # Tingle
+  c17:                      "item Global-Tingle.i_TokenNewledge"                          # Tingle
+  c18:                      "item Global-Tingle.i_TokenCrownholm"                         # Tingle
+  c19:                      "item Global-Tingle.i_TokenSteinhavn"                         # Tingle
+  c20:                      "item Global-Tingle.i_TokenLinedale"                          # Tingle
+  c21:                      "item Global-Tingle.i_TokenFungalflats"                       # Tingle
+  c22:                      "item Global-Tingle.i_TokenPufferport"                        # Tingle
+  c23:                      "item Global-Tingle.i_TokenThrallhaven"                       # Tingle
+  c24:                      "item Global-Tingle.i_TokenLittledew"                         # Tingle
+  c25:                      "item Global-Tingle.i_TokenWilderridge"                       # Tingle
+  c26:                      "item Global-Tingle.i_TokenNorwatch"                          # Tingle
+  c27:                      "item Dungeons-SmaskesPuzzle.i_DungeonToken"                  # Dungeon
+  c28:                      "item LittleDew-LoveLetter.i_QuestToken"                      # Quest
+
+items:
+  i_Emerald:                "minecraft:emerald"

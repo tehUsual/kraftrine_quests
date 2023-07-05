@@ -1,0 +1,168 @@
+# NPC_QuestGiver: Mabel
+
+npcs:
+  '60': "mabel"
+
+variables:
+  loc: -4306;87;-4757;world
+  vectors:
+    chest1: $loc$->(-3;-3;5)   # 1 south       # good
+    chest2: $loc$->(2;-3;0)    # 2 east        # good
+    chest3: $loc$->(-19;-2;4)  # 3 west        # good
+    chest4: $loc$->(-11;-4;-1) # 4 north       # good 
+    chest5: $loc$->(-4;-2;1)   # 5 middle      # 
+
+
+conversations:
+  mabel:
+    quester: "Mabel Scatterbrain"
+    #first: welcome_QuestComplete,welcome_NotAvailable,welcome_QuestDeliver,welcome_QuestActive,welcome_StartQuest
+    first: welcome_BusyQuest,welcome_QuestComplete,welcome_QuestDeliver,welcome_QuestActive,welcome_StartQuest
+
+    NPC_options:
+      # Quest Start
+      welcome_StartQuest:
+        conditions: "chk_CanStartQuest"
+        text: "Oh dear, oh dear, I can't find anything in this mess! I'm in desperate need of some help, would you be willing to lend me a hand?"
+        pointer: iCanHelp,iCantHelp
+      takeCare:
+        text: "Oh, hopefully someone else has better manners.."
+        #exit
+      willHelp:
+        text: "You might know my sister, Agatha Scatterbrain. She lives up in Newledge. We are equally confused and messy ah ah ah."
+        pointer: uhhuh
+      willHelp2:
+        text: "Well, my storage is an absolute disaster. I've got so many chests and barrels down in my basement. I can't for the love of me remember where I put my stuff!
+               I was hoping you could help me find my items. It's not that big of a task, but I'd be happy to reward you for your time!"
+        pointer: sure,iCantHelp
+      start:
+        text: "Great! Just enter the trapdoor in the floor and fetch me &45&r poppys."
+        event: e_QuestStart
+
+      # Quest Busy
+      welcome_BusyQuest:
+        conditions: "chk_WaitForQuest"
+        text: "Oh dear, someone else is already helping me, please come back later!"
+
+      # Quest Active
+      welcome_QuestActive:
+        conditions: "chk_QuestActive"
+        text: "Oh dear, this doesn't seem right.. You haven't found all &45&r poppys.\nPlease go look for them."
+        #exit
+
+      # Quest Deliver
+      welcome_QuestDeliver:
+        conditions: "c_taskComplete"
+        text: "Oh, you found them all! Thank you so much for your help!\nYou've been a real lifesaver! Here, take this as a token of my gratitude."
+        event: e_QuestComplete
+        # exit
+
+      # Quest Complete
+      welcome_QuestComplete:
+        conditions: "chk_QuestComplete"
+        text: "Thanks for helping me find my items. I will rename my grandchild after you.\n\nThe great %player.name%."
+        #exit
+
+
+    player_options:
+      # Quest Start
+      iCanHelp:
+        text: "Sure, what do you need help with?"
+        pointer: willHelp
+      iCantHelp:
+        text: "I'm sorry, this is too messy.."
+        pointer: takeCare
+      uhhuh:
+        text: "Uh huh"
+        pointer: willHelp2
+      sure:
+        text: "Sure!"
+        pointer: start
+
+
+
+events:
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,tag_add_GMB_Start,e_startObj_DontExit,gtag_add_GMB_Busy,e_fol_clearChests,e_fol_fillChests,j_add_desc"
+  e_text_QuestStart:      "notify &6Quest Started\n&aGranny's Messy Basement io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  e_startObj_DontExit:    "objective add o_region_DontExit"
+  gtag_add_GMB_Busy:      "globaltag add GMB_Busy"
+  tag_add_GMB_Start:      "tag add GMB_Start"
+  j_add_desc:             "journal add questDesc"
+
+  # Quest Complete
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,e_give_QuestReward,tag_add_GMB_Complete,e_Cleanup,chat_QuestComplete,e_addScore"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aGranny's Messy Basement io:title"
+  e_text_QuestComplete_2: "notify &aGrannysMessyBasement io:advancement frame:challenge icon:diamond"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  e_give_QuestReward:     "give i_diamond:3"
+  tag_add_GMB_Complete:   "tag add GMB_Complete"
+  chat_QuestComplete:     "command broadcast &6%player% &2completed the quest: Granny's Messy Basement"
+  e_addScore:             "score quests 1 action:add"
+
+  # Quest Cancel
+  e_QuestFail:            "folder e_text_QuestFail,e_sound_QuestFail,e_Cleanup"
+  e_text_QuestFail:       "notify &4Quest failed..\nTalk to &2Mabel&r to restart the quest io:title"
+  e_sound_QuestFail:      "notify io:sound sound:entity.blaze.death soundpitch:0.5"
+
+  # Reset
+  e_Cleanup:              "folder tag_del_GMB_Start,gtag_del_GMB_Busy,e_delObj_DontExit,e_fol_clearChests,e_cleanPlayer,j_del_desc"
+  e_delObj_DontExit:      "objective remove o_region_DontExit"
+  tag_del_GMB_Start:      "tag del GMB_Start"
+  gtag_del_GMB_Busy:      "globaltag del GMB_Busy"
+  j_del_desc:             "journal delete questDesc"
+
+
+  # Fill chests
+  e_fol_fillChests:             "folder e_putCh1,e_putCh2,e_putCh3,e_putCh4,e_putCh5"
+  e_putCh1:                     "chestgive $vectors.chest1$ i_item:1"
+  e_putCh2:                     "chestgive $vectors.chest2$ i_item:1"
+  e_putCh3:                     "chestgive $vectors.chest3$ i_item:1"
+  e_putCh4:                     "chestgive $vectors.chest4$ i_item:1"
+  e_putCh5:                     "chestgive $vectors.chest5$ i_item:1"
+
+  # Clear chests
+  e_fol_clearChests:            "folder e_clrCh1,e_clrCh2,e_clrCh3,e_clrCh4,e_clrCh5"
+  e_clrCh1:                     "chestclear $vectors.chest1$"
+  e_clrCh2:                     "chestclear $vectors.chest2$"
+  e_clrCh3:                     "chestclear $vectors.chest3$"
+  e_clrCh4:                     "chestclear $vectors.chest4$"
+  e_clrCh5:                     "chestclear $vectors.chest5$"
+
+  # Clean player inventory
+  e_cleanPlayer:                "take i_item:5"
+
+conditions:
+  # Check chests
+  c_itemInCh1:                  "chestitem $vectors.chest1$ i_item:1"
+  c_itemInCh2:                  "chestitem $vectors.chest2$ i_item:1"
+  c_itemInCh3:                  "chestitem $vectors.chest3$ i_item:1"
+  c_itemInCh4:                  "chestitem $vectors.chest4$ i_item:1"
+  c_itemInCh5:                  "chestitem $vectors.chest5$ i_item:1"
+  c_chestsCleared:              "and !c_itemInCh1,!c_itemInCh2,!c_itemInCh3,!c_itemInCh4,!c_itemInCh5"
+  # Check player inventory
+  c_itemInPlayer:               "item i_item:5"
+  # Tasl complete
+  c_taskComplete:               "and c_chestsCleared,c_itemInPlayer,chk_QuestActive"
+
+  # Aggregated
+  chk_CanStartQuest:            "and !chk_QuestBusy,!chk_QuestStarted"
+  chk_WaitForQuest:             "and chk_QuestBusy,!chk_QuestStarted"
+  chk_QuestActive:              "and chk_QuestBusy,chk_QuestStarted"
+  # Individual
+  chk_QuestStarted:             "tag GMB_Start"
+  chk_QuestBusy:                "globaltag GMB_Busy"
+  chk_QuestComplete:            "tag GMB_Complete"
+
+objectives:
+  o_region_DontExit:            "region quest_gmb exit events:e_QuestFail"
+
+journal:
+  questDesc:
+    en: "GMB: &2Mabel Scatterbrain&0 located in &Borecrest&0 has asked you to search her basement for her flowers."
+
+items:
+  i_QuestToken:                 "minecraft:sunflower name:&6#8_Grannys_Messy_Basement lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_item:                       "minecraft:poppy"
+  i_diamond:                    "minecraft:diamond"

@@ -1,0 +1,187 @@
+# NPC_QuestGiver: Necromancer
+# Location:       Wilderness
+
+npcs:
+  '35': "necromancer"
+
+variables:
+  npc1:     "Necromancer"
+  npc2:     "Shiver"
+  hideout:  "Steinhavn"
+
+conversations:
+  necromancer:
+    quester: "Necromancer"
+    first: welcome_QuestComplete,welcome_QuestDeliver,welcome_QuestActive,welcome_StartQuest
+
+    NPC_options:
+      # Quest Start
+      welcome_StartQuest:
+        conditions: "!chk_QuestStarted"
+        text: "You have no business here. Our clan is not for the likes of you."
+        pointer: objection,whatever
+      unacceptable:
+        text: "Unacceptable!"
+        event: #hurt player
+        #exit
+      nobusiness:
+        text: "No? That's.. that's not how this works! Urg.."
+        pointer: yesitis,itsnot
+      noitsnot:
+        text: "No, as a matter of fact it's not! Now go!"
+        #exit
+      invite:
+        text: "Fine, I'll give you a chance. But you must &nunderstand&r, our clan is not for the faint of heart.
+               It requires sacrifice, commitment, and above all, loyalty."
+        pointer: doanything,notinterested
+      whatithought:
+        text: "That's what I thought, now leave!"
+        #exit
+      hastodie:
+        text: "To even learn of the location of our hideout, you must prove yourself worthy.\n\nYou must die.\n(hehehe)"
+        pointer: idie,yeahno
+      ifsurvive:
+        text: "If you survive (hehehe), perhaps we'll consider letting you in. But don't get your hopes up. Most don't make it. (hehehe)"
+        pointer: dontworry,blabla
+      mimic:
+        text: "DON'T YOU EVER LISTEN?\n\nJust go.. Come back when.. if you can. (hehe)"
+        pointer: goingtodie
+      lookingforward:
+        text: "I'm looking forward to that.. moh.. mohaha.. moh\n\n*cough*\n*cough*\n\nRight.. just go."
+        pointer: goingtodie
+      wheretodoit:
+        text: "If you need help to get started, just enter the door to your left. *smirks*"
+        event: e_QuestStart
+        #start quest
+        #exit
+
+      # Quest Active
+      welcome_QuestActive:
+        conditions: "chk_QuestStarted"
+        text: "You know what to do, come back when you're done."
+        #exit
+
+      # Quest Deliver
+      welcome_QuestDeliver:
+        conditions: "chk_ObjectiveDied"
+        text: "Wait, what?? You.. I just watched you die?!"
+        pointer: isaidmakeit
+      yousaidmakeit:
+        text: "Yeah.. I suppose you did.\nOk, a deal is a deal.\n\nOur secret hideout is located in $hideout$. Talk to &2$npc2$&r. He'll tell you what to do."
+        pointer: okcool,invitethanks
+      dontthank:
+        text: "Yeah, sure. Just leave"
+        event: e_QuestComplete
+        #quest complete
+        #exit
+
+      # Quest Complete
+      welcome_QuestComplete:
+        conditions: "chk_QuestComplete"
+        text: "Please leave, we're done here."
+        pointer: okbye
+
+
+    player_options:
+      # Quest Start
+      objection:
+        text: "That's none of your business."
+        pointer: nobusiness
+      whatever:
+        text: "Whatever old man."
+        pointer: unacceptable
+      yesitis:
+        text: "Yes it is."
+        pointer: invite
+      itsnot:
+        text: "It's not?"
+        pointer: noitsnot
+      doanything:
+        text: "I'll do anything to join. Just tell me what I need to do."
+        pointer: hastodie
+      notinterested:
+        text: "Eh, no thanks."
+        pointer: whatithought
+      idie:
+        text: "What do you mean? I have to die?"
+        pointer: ifsurvive
+      yeahno:
+        text: "Yeah no, I'm not doing that."
+        pointer: whatithought
+      dontworry:
+        text: "Don't worry. I'll make it."
+        pointer: lookingforward
+      blabla:
+        text: "*mimicking* \"If you survive..\""
+        pointer: mimic
+      goingtodie:
+        text: "Ok, sure."
+        pointer: wheretodoit
+
+      # Quest Deliver
+      isaidmakeit:
+        text: "Dude, I said i'd make it."
+        pointer: yousaidmakeit
+      okcool:
+        text: "Ok, cool."
+        pointer: dontthank
+      invitethanks:
+        text: "Thanks"
+        pointer: dontthank
+
+      # Quest Complete
+      okbye:
+        text: "Ok.."
+        #exit
+
+      
+
+      
+events:
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,tag_add_RSI_Start,e_startObj_DieLava,j_add_desc"
+  e_text_QuestStart:      "notify &6Quest Started\n&aRevenant Society: Invite io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  tag_add_RSI_Start:      "tag add RSI_Start"
+  e_startObj_DieLava:     "objective add o_die_InLava"
+  j_add_desc:             "journal add questDesc"
+
+  # Objective Complete: Died
+  e_ObjectiveDied:        "folder tag_add_RSI_Died"
+  tag_add_RSI_Died:       "tag add RSI_Died"
+
+  # Quest Complete
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,e_give_QuestReward,e_Cleanup,tag_add_RSI_Complete,e_exp_Give,chat_QuestComplete,e_addScore"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aRevenant Society: Invite io:title"
+  e_text_QuestComplete_2: "notify &aRevenantSocietyInvite io:advancement frame:challenge icon:diamond"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  e_give_QuestReward:     "give i_LavaPotion:1"
+  e_exp_Give:             "experience 3 action:addLevel"
+  tag_add_RSI_Complete:   "tag add RSI_Complete"
+  chat_QuestComplete:     "command broadcast &6%player.display% &2completed the quest: Revenant Society: Invite"
+  e_addScore:             "score quests 1 action:add"
+  
+  # Reset
+  e_Cleanup:              "folder tag_del_RSI_Start,tag_del_RSI_Died,e_delObj_DieLava,j_del_desc"
+  tag_del_RSI_Start:      "tag del RSI_Start"
+  tag_del_RSI_Died:       "tag del RSI_Died"
+  e_delObj_DieLava:       "objective remove o_die_InLava"
+  j_del_desc:             "journal delete questDesc"
+
+
+conditions:
+  chk_QuestStarted:       "tag RSI_Start"
+  chk_ObjectiveDied:      "tag RSI_Died"
+  chk_QuestComplete:      "tag RSI_Complete"
+  chk_PlayerInLava:       "location -3087;67;-3986;world 3"
+
+objectives:
+  o_die_InLava:           "die condition:chk_PlayerInLava events:e_ObjectiveDied"
+
+journal:
+  questDesc:
+    en: "RSI: The &2Necromancer&0 located in &ksecret&0 has asked you to.. die in the lava."
+
+items:
+  i_QuestToken:           "minecraft:sunflower name:&6#4_Revenant_Society_Invite lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_LavaPotion:           "minecraft:splash_potion name:Revenant_Anti-Burn_Potion lore:&5Prevents_bacon_aroma type:fire_resistance"

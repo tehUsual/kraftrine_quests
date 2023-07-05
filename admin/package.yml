@@ -1,0 +1,4 @@
+events:
+  e_scoreClear:           "score quests 0 action:set"
+  e_scoreSub:             "score quests 1 action:subtract"
+  e_scoreAdd:             "score quests 1 action:add"

@@ -1,0 +1,186 @@
+# NPC_QuestGiver: Agatha
+
+npcs:
+  '26': "agatha"
+
+variables:
+  loc: -4318;117;-5144;world
+  vectors:
+    chest1: $loc$->(4;0;-1)   # front of stairs   yellow
+    chest2: $loc$->(3;1;4)    # besides granny    red
+    chest3: $loc$->(1;4;5)    # by balcony        white
+    chest4: $loc$->(2;4;-1)   # by bed            blue
+    chest5: $loc$->(4;5;-1)   # ontop shelf       pink
+  bundles:
+    ch1: i_yellow:2,i_red:9,i_white:7,i_pink:7,i_blue:8
+    ch2: i_yellow:10,i_red:1,i_white:1,i_pink:1,i_blue:3
+    ch3: i_yellow:4,i_red:8,i_white:4,i_pink:2,i_blue:6
+    ch4: i_yellow:10,i_red:9,i_white:2,i_pink:7,i_blue:2
+    ch5: i_yellow:8,i_red:5,i_white:3,i_pink:10,i_blue:9
+  cleaned:
+    ch1: i_yellow:34
+    ch2: i_red:32
+    ch3: i_white:17
+    ch4: i_blue:28
+    ch5: i_pink:27
+
+conversations:
+  agatha:
+    quester: "Agatha Scatterbrain"
+    first: welcome_BusyQuest,welcome_QuestFulfilled,welcome_QuestActive,welcome_StartQuest
+
+    NPC_options:
+      # Quest Start
+      welcome_StartQuest:
+        conditions: chk_CanStartQuest
+        text: "Oh dear, oh dear, I can't find anything in this mess! I'm in desperate need of some help, would you be willing to lend me a hand?"
+        pointer: iCanHelp,iCantHelp
+
+      willHelp:
+        text: "Well, my storage is an absolute disaster. I've got items scattered everywhere, and I can't seem to find anything when I need it.
+              I was hoping you could help me sort everything out and get things organized. It's not that big of a task, but I'd be happy to reward you for your time!"
+        pointer: uhHuh
+      getStarted:
+        text: "Okay, let's get started! The only thing we need to do is sort all of these flowers into their proper chests. I've got &3Rose Bushes&r in with the &3Cornflowers&r
+              and the &3Peoneys&r, it's all a jumbled mess! Can you help me put everything in its proper place?"
+        pointer: iCanHelp2,iCantHelp
+      thanksWillHelp:
+        text: "Great! Let's get started! Oh dear, I can't believe how messy this all is!"
+        event: e_QuestStart
+      takeCare:
+        text: "Oh, hopefully someone else has better manners.."
+        #exit
+
+      # Quest Busy
+      welcome_BusyQuest:
+        conditions: chk_WaitForQuest
+        text: "Oh dear, someone else is already helping me, please come back later!"
+
+      # Quest Active:
+      welcome_QuestActive:
+        conditions: chk_QuestActive
+        text: "Oh dear, this doesn't seem right.. There should be\n34 &3Dandelions&r\n 32 &3Rose Bushes&r\n 17 &3White Tulips&r\n 27 &3Peonies&r\n 28 &3Cornflower&r"
+
+      # Quest fulfilled
+      welcome_QuestFulfilled:
+        conditions: c_chestsSorted
+        text: "Oh, thank you so much for your help! I can finally find everything I need without digging through piles of junk.
+              You've been a real lifesaver! Here, take this as a token of my gratitude."
+        event: e_QuestComplete
+        # exit
+
+      welcome_QuestCompleted:
+        conditions: chk_QuestCompleted
+        text: "Thanks for helping me sort my mess. I will rename my grandchild after you.\nThe great %player.name%."
+
+    
+    player_options:
+      # Quest Start
+      iCanHelp:
+        text: "Sure, what do you need help with?"
+        pointer: willHelp
+      iCantHelp:
+        text: "I'm sorry, this is too messy.."
+        pointer: takeCare
+      uhHuh:
+        text: "Uh huh"
+        pointer: getStarted
+      iCanHelp2:
+        text: "Don't worry, we'll get it sorted out it no time."
+        pointer: welcome_BusyQuest,thanksWillHelp
+
+
+events:
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,e_startObj_DontExit,tag_add_GMC_Start,gtag_add_GMC_Busy,e_fol_clearChests,e_fol_scrambleChests,j_add_desc"
+  e_text_QuestStart:      "notify &6Quest Started\n&aGranny's Messy Chests io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  e_startObj_DontExit:    "objective add o_region_DontExit"
+  gtag_add_GMC_Busy:      "globaltag add GMC_Busy"
+  tag_add_GMC_Start:      "tag add GMC_Start"
+  j_add_desc:             "journal add questDesc"
+
+  # Quest Complete
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,e_give_Reward,tag_add_GMC_Complete,e_Cleanup,chat_QuestComplete,e_addScore"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aGranny's Messy Chests io:title"
+  e_text_QuestComplete_2: "notify &aGrannysMessyChests io:advancement frame:challenge icon:diamond"
+  e_give_Reward:          "give i_white_dye:5,i_red_dye:5,i_blue_dye:5,i_yellow_dye:5,i_pink_dye:5"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  tag_add_GMC_Complete:   "tag add GMC_Complete"
+  chat_QuestComplete:     "command broadcast &6%player% &2completed the quest: Granny's Messy Chests"
+  e_addScore:             "score quests 1 action:add"
+
+  # Quest Cancel
+  e_QuestFail:            "folder e_text_QuestFail,e_sound_QuestFail,e_Cleanup,e_fol_cleanPlayer"
+  e_text_QuestFail:       "notify &4Quest failed..\nTalk to &2Agatha&r to restart the quest io:title"
+  e_sound_QuestFail:      "notify io:sound sound:entity.blaze.death soundpitch:0.5"
+
+  # Reset
+  e_Cleanup:              "folder tag_del_GMC_Start,gtag_del_GMC_Busy,e_delObj_DontExit,e_fol_clearChests,j_del_desc"
+  e_delObj_DontExit:      "objective remove o_region_DontExit"
+  tag_del_GMC_Start:      "tag del GMC_Start"
+  gtag_del_GMC_Busy:      "globaltag del GMC_Busy"
+  j_del_desc:             "journal delete questDesc"
+
+
+  # Scramble chests
+  e_scrCh1:                     "chestgive $vectors.chest1$ $bundles.ch1$"
+  e_scrCh2:                     "chestgive $vectors.chest2$ $bundles.ch2$"
+  e_scrCh3:                     "chestgive $vectors.chest3$ $bundles.ch3$"
+  e_scrCh4:                     "chestgive $vectors.chest4$ $bundles.ch4$"
+  e_scrCh5:                     "chestgive $vectors.chest5$ $bundles.ch5$"
+  e_fol_scrambleChests:         "folder e_scrCh1,e_scrCh2,e_scrCh3,e_scrCh4,e_scrCh5"
+
+  # Clear chests
+  e_clrCh1:                     "chestclear $vectors.chest1$"
+  e_clrCh2:                     "chestclear $vectors.chest2$"
+  e_clrCh3:                     "chestclear $vectors.chest3$"
+  e_clrCh4:                     "chestclear $vectors.chest4$"
+  e_clrCh5:                     "chestclear $vectors.chest5$"
+  e_fol_clearChests:            "folder e_clrCh1,e_clrCh2,e_clrCh3,e_clrCh4,e_clrCh5"
+
+  # Clean Player Inventory
+  e_take_item_1:                "take i_yellow:28"
+  e_take_item_2:                "take i_red:27"
+  e_take_item_3:                "take i_white:17"
+  e_take_item_4:                "take i_pink:32"
+  e_take_item_5:                "take i_blue:34"
+  e_fol_cleanPlayer:            "folder e_take_item_1,e_take_item_2,e_take_item_3,e_take_item_4,e_take_item_5"
+
+conditions:
+  c_itemInCh1:                  "chestitem $vectors.chest1$ $cleaned.ch1$"
+  c_itemInCh2:                  "chestitem $vectors.chest2$ $cleaned.ch2$"
+  c_itemInCh3:                  "chestitem $vectors.chest3$ $cleaned.ch3$"
+  c_itemInCh4:                  "chestitem $vectors.chest4$ $cleaned.ch4$"
+  c_itemInCh5:                  "chestitem $vectors.chest5$ $cleaned.ch5$"
+  c_chestsSorted:               "and c_itemInCh1,c_itemInCh2,c_itemInCh3,c_itemInCh4,c_itemInCh5"
+
+  # Aggregated
+  chk_CanStartQuest:            and !chk_QuestBusy,!chk_QuestStarted
+  chk_WaitForQuest:             and chk_QuestBusy,!chk_QuestStarted
+  chk_QuestActive:              and chk_QuestBusy,chk_QuestStarted
+  # Individual
+  chk_QuestStarted:             tag GMC_Start
+  chk_QuestBusy:                globaltag GMC_Busy
+  chk_QuestCompleted:           tag GMC_Complete
+
+objectives:
+  o_region_DontExit:            "region quest_gmc exit events:e_QuestFail"
+
+journal:
+  questDesc:
+    en: "GMC: &2Agatha Scatterbrain&0 located in &Newledge&0 has asked you to organize her chests."
+
+items:
+  i_yellow:   minecraft:dandelion       # 34
+  i_red:      minecraft:rose_bush       # 32
+  i_white:    minecraft:white_tulip     # 17
+  i_pink:     minecraft:peony           # 27
+  i_blue:     minecraft:cornflower      # 28
+
+  i_QuestToken:                 "minecraft:sunflower name:&6#2_Grannys_Messy_Chests lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_white_dye:                  "minecraft:white_dye"
+  i_blue_dye:                   "minecraft:light_blue_dye"
+  i_pink_dye:                   "minecraft:pink_dye"
+  i_yellow_dye:                 "minecraft:yellow_dye"
+  i_red_dye:                    "minecraft:red_dye"

@@ -1,0 +1,177 @@
+# NPC_QuestGiver: Shiver
+# Location:       Steinhavn
+
+npcs:
+  '34': "shiver"
+
+variables:
+  npc1:     "Shiver"
+  npc2:     "Necromancer"
+  npc3:     "Rotheart"
+
+conversations:
+  shiver:
+    quester: "Shiver"
+    first: QLC,welcome_QuestComplete,welcome_NotAvailable,welcome_QuestDeliver,welcome_QuestActive,welcome_StartQuest
+
+    NPC_options:
+      # Quest line complete
+      QLC:
+        conditions: "chk_QuestLineComplete"
+        text: "Greetings fellow revenant."
+
+      # Quest Complete
+      welcome_QuestComplete:
+        conditions: "chk_QuestComplete"
+        text: "You're done here. Talk to &2$npc3$&r for your next task."
+        #exit
+
+      # Not Available
+      welcome_NotAvailable:
+        conditions: "!chk_HasJoined"
+        text: "You have no business here. Our clan is not for the likes of you."
+        #exit
+      
+      # Start Quest
+      welcome_StartQuest:
+        text: "The &2$npc2$&r told me you we're arriving."
+        pointer: firstmeet
+      whatisthis:
+        text: "First of all, you haven't joined anything. You are merely an apprentice. To be able to consider yourself as one of us, you have to complete some tasks
+               for us to show your loyalty."
+        pointer: whytasks
+      taskdescp:
+        text: "Not quite. If you haven't realized it yet, our clan is not of the good kind. We live to do the unforgivable."
+        pointer: likewherego,notasks
+      thengo:
+        text: "Then we have no business here. Leave."
+        #exit
+      pretask:
+        text: "Good, then the first task shouldn't be troubling. Do be aware, we don't accept any questions, you are to do as you're told."
+        pointer: imready
+      firsttask:
+        text: "I want you &4kill&r 5 villagers."
+        pointer: taskyes, taskno
+      yessir:
+        text: "Talk to me when you're done."
+        pointer: pgetquest
+
+      # Quest Active
+      welcome_QuestActive:
+        conditions: "chk_QuestStarted,!chk_KilledVillagers"
+        text: "You haven't killed all the villagers yet.\nYou still need to kill %objective.o_kill_Villagers.left% more."
+        #exit
+
+      # Quest Deliver
+      welcome_QuestDeliver:
+        conditions: "chk_QuestStarted,chk_KilledVillagers"
+        text: "Great work. Consider yourself a little closer to becoming a true necromancer of the Revenant Society."
+        pointer: deliverno,deliveryes
+      ilikethis:
+        text: "That's the true spirit of our society.\n\nTalk to &2$npc3$&r for your next task.\nIn the meantime, 
+               take this as a token of your great work."
+        pointer: donethanks
+      questfail:
+        text: "THIS ATTITUDE IS UNACCEPTABLE."
+        event: e_QuestFailed
+
+
+    player_options:
+      # Start Quest
+      firstmeet:
+        text: "What is this society i just joined?"
+        pointer: whatisthis
+      whytasks:
+        text: "I gotta do work?"
+        pointer: taskdescp
+      likewherego:
+        text: "I like where this is going."
+        pointer: pretask
+      notasks:
+        text: "This is not what I signed up for."
+        pointer: thengo
+      imready:
+        text: "I'm ready."
+        pointer: firsttask
+      taskno:
+        text: "BRO, NO WAY."
+        pointer: thengo
+      taskyes:
+        text: "Yes, sir."
+        pointer: yessir
+      pgetquest:
+        text: "Ok."
+        event: e_QuestStart
+        #start quest
+        #exit
+      
+      # Quest Delivery
+      deliveryes:
+        text: "This is exhilarating!"
+        pointer: ilikethis
+      deliverno:
+        text: "That just felt wrong.."
+        pointer: questfail
+        #quest failed
+        #exit
+      donethanks:
+        text: "Thank you."
+        event: e_QuestComplete
+        #quest complete
+        #exit
+
+
+events:
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,tag_add_RSVS_Start,e_startObj_KV,j_add_desc"
+  e_text_QuestStart:      "notify &6Quest Started\n&aRevenant Society: Villager Slaughter io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  tag_add_RSVS_Start:     "tag add RSVS_Start"
+  e_startObj_KV:          "objective add o_kill_Villagers"
+  j_add_desc:             "journal add questDesc"
+
+  # Objective Complete: Villager kills
+  e_ObjectiveKV:          "folder tag_add_RSVS_Killed"
+  tag_add_RSVS_Killed:    "tag add RSVS_Killed"
+
+  # Quest Failed:
+  e_QuestFailed:          "folder e_text_QuestFail,e_sound_QuestFail,e_Cleanup"
+  e_text_QuestFail:       "notify &4Quest Failed\n&4Revenant Society: Villager Slaughter io:title"
+  e_sound_QuestFail:      "notify io:sound sound:entity.blaze.death soundpitch:0.5"
+
+  # Quest Complete:
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,e_give_QuestReward,e_Cleanup,tag_add_RSVS_Complete,e_exp_Give,chat_QuestComplete,e_addScore"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aRevenant Society: Villager Slaughter io:title"
+  e_text_QuestComplete_2: "notify &aRevenantSociety-VillagerSlaughter io:advancement frame:challenge icon:diamond"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  e_give_QuestReward:     "give i_Sword:1"
+  tag_add_RSVS_Complete:  "tag add RSVS_Complete"
+  e_exp_Give:             "experience 3 action:addLevel"
+  chat_QuestComplete:     "command broadcast &6%player% &2completed the quest: Revenant Society: Villager Slaughter"
+  e_addScore:             "score quests 1 action:add"
+
+  # Reset
+  e_Cleanup:              "folder tag_del_RSVS_Start,tag_del_RSVS_Killed,e_delObj_KV,j_del_desc"
+  tag_del_RSVS_Start:     "tag del RSVS_Start"
+  tag_del_RSVS_Killed:    "tag del RSVS_Killed"
+  e_delObj_KV:            "objective remove o_kill_Villagers"
+  j_del_desc:             "journal delete questDesc"
+
+
+conditions:
+  chk_HasJoined:          "tag Wilderness-RevenantSociety-Starter.RSI_Complete"
+  chk_QuestStarted:       "tag RSVS_Start"
+  chk_KilledVillagers:    "tag RSVS_Killed"
+  chk_QuestComplete:      "tag RSVS_Complete"
+  chk_QuestLineComplete:  "tag Steinhavn-KillPlayer.RSPS_Complete"
+
+objectives:
+  o_kill_Villagers:       "mobkill VILLAGER 5 notify events:e_ObjectiveKV"
+
+journal:
+  questDesc:
+    en: "RSVS: &2Shiver&0 located in &2Steinhavn&0 has asked you to slay 5 villagers."
+
+items:
+  i_QuestToken:           "minecraft:sunflower name:&6#5_Revenant_Society:_Villager_Slaughter lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_Sword:                "minecraft:wooden_sword name:Splinter lore:&5Villagers_hates_this enchants:DAMAGE_ALL:6"

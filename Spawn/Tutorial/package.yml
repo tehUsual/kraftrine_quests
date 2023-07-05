@@ -1,0 +1,185 @@
+npcs:
+  '76':   "tutorial"
+
+conversations:
+  tutorial:
+    quester: "Tutorial Guy"
+    first: welcome_QuestComplete,welcome_TalkJumped,welcome_DeliverQuest,welcome_QuestActive,welcome_StartQuest
+
+    NPC_options:
+      # Quest Complete
+      welcome_QuestComplete:
+        conditions: "chk_QuestComplete"
+        text: "Hello!\n\n* Don't lose your quest tokens.\n* See your and other's progress in the TAB menu.\n* Have fun."
+        #exit
+
+      # Jumped 10 times
+      welcome_TalkJumped:
+        conditions: "chk_QuestJumped_10,!chk_QuestJumped_1"
+        text: "Well done!\n\nHow about.. you jump &2one&r more time, just for good measure?"
+        pointer: yesgood2,nogood2
+      qdesc2:
+        text: "Well, get going!"
+        event: e_TaskStart
+        #exit
+
+      # Deliver Quest
+      welcome_DeliverQuest:
+        conditions: "chk_QuestJumped_10,chk_QuestJumped_1"
+        text: "Wow, you did it! Before you get your reward;\nOnce a quest has been completed, you'll receive a quest token. This is your proof of completing a quest, bragging rights per say.
+               Store it away or hang it on the wall.."
+        pointer: waitreward
+      tab:
+        text: "You also get a quest point. Every online player's quest points can be viewed in while holding down TAB. Got it?"
+        pointer: gotit,dontknow,dontgotit
+      pdontknow:
+        text: "If you have any questions, feel free to use our discord server. People tend to help when asked ;)"
+        pointer: discord
+      pgotit:
+        text: "Supreme. Well, I promised a reward, here you go :)"
+        pointer: thanks
+      urwelcome:
+        text: "Welcome to our server %player%!"
+        event: e_QuestComplete
+        #exit
+
+      # Quest Active
+      welcome_QuestActive:
+        conditions: "chk_QuestStarted"
+        text: "Seems like you still have to jump %objective.o_jump_10.left% times. Come back when you're done."
+        #exit
+
+      # Start Quest
+      welcome_StartQuest:
+        text: "Hello %player%!\nGreat to see you. First off, to select a response, move up or down with W and S repectively. Confirm your response with SPACE."
+        pointer: a,b
+      firstpass:
+        text: "Excellent!\nIf you ever need to cancel a dialog, press SHIFT.\n\nNow, with that out of the way, are you ready for your first quest?"
+        pointer: accept,decline
+      pdecline:
+        text: "Oh.. ok. Come see me anytime!"
+        #exit
+      paccept:
+        text: "Great!\nConsidering doing activities in minecraft require a lot of hard work, it's important to do a warm up. I want you to &2jump, 10 times&r. Sound good?"
+        pointer: yesgood,nogood
+      qdesc:
+        text: "Nice, come see me when you're done."
+        pointer: okaccept
+
+
+    player_options:
+      # Jumped 10 times
+      yesgood2:
+        text: "I can do that."
+        pointer: qdesc2
+      nogood2:
+        text: "I'd rather not."
+        pointer: pdecline
+
+      # Deliver Quest
+      waitreward:
+        text: "Uhu"
+        pointer: tab
+      gotit:
+        text: "Yes"
+        pointer: pgotit
+      dontknow:
+        text: "I think so"
+        pointer: pdontknow
+      discord:
+        text: "True"
+        pointer: pgotit
+      dontgotit:
+        text: "Hmm, no?"
+        pointer: welcome_DeliverQuest
+      thanks:
+        text: "Thanks!"
+        pointer: urwelcome
+
+      # Start Quest
+      a:
+        text: "Like this?"
+        pointer: firstpass
+      b:
+        text: "Or this?"
+        pointer: firstpass
+      accept:
+        text: "Yes!"
+        pointer: paccept
+      decline:
+        text: "No."
+        pointer: pdecline
+      yesgood:
+        text: "I can do that."
+        pointer: qdesc
+      nogood:
+        text: "I'd rather not."
+        pointer: pdecline
+      okaccept:
+        text: "Ok!"
+        event: e_QuestStart
+      # Quest Complete
+      nice:
+        text: "Ok!"
+        #exit
+
+
+events:
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,tag_add_TGT_Start,e_startObj_Jump10,j_add_desc"
+  e_text_QuestStart:      "notify &6Quest Started\n&aThe Greatest Tutorial io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  tag_add_TGT_Start:      "tag add TGT_Start"
+  e_startObj_Jump10:      "objective add o_jump_10"
+  j_add_desc:             "journal add questDesc"
+
+  # Jumped 10 times
+  e_jumped10:             "folder tag_add_TGT_Jumped_10,e_text_Jumped_10"
+  tag_add_TGT_Jumped_10:  "tag add TGT_Jumped_10"
+  e_text_Jumped_10:       "notify &6\n&aTalk to the tutorial guy io:title"
+
+  # Jump 1 time
+  e_TaskStart:            "folder e_startObj_Jump1"
+  e_startObj_Jump1:       "objective add o_jump_1"
+  # Jumped 1 time
+  e_jumped1:              "folder tag_add_TGT_Jumped_1"
+  tag_add_TGT_Jumped_1:   "tag add TGT_Jumped_1"
+
+  # Cleanup
+  e_cleanup:              "folder tag_del_TGT_Start,tag_del_TGT_Jumped_10,tag_del_TGT_Jumped_1,o_del_Jump10,o_del_Jump1,j_del_desc"
+  tag_del_TGT_Start:      "tag del TGT_Start"
+  tag_del_TGT_Jumped_10:  "tag del TGT_Jumped_10"
+  tag_del_TGT_Jumped_1:   "tag del TGT_Jumped_1"
+  o_del_Jump10:           "objective remove o_jump_10"
+  o_del_Jump1:            "objective remove o_jump_1"
+  j_del_desc:             "journal delete questDesc"
+
+  # Quest Complete
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,e_give_QuestReward,tag_add_TGT_Complete,e_exp_Give,chat_QuestComplete,e_addScore,e_cleanup"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aThe Greatest Tutorial io:title"
+  e_text_QuestComplete_2: "notify &aThe_Greatest_Tutorial io:advancement frame:challenge icon:diamond"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  e_give_QuestReward:     "give i_QuestReward:1"
+  tag_add_TGT_Complete:   "tag add TGT_Complete"
+  e_exp_Give:             "experience 3 action:addLevel"
+  chat_QuestComplete:     "command broadcast &6%player% &2completed the quest: The Greatest Tutorial"
+  e_addScore:             "score quests 1 action:add"
+
+conditions:
+  chk_QuestStarted:       "tag TGT_Start"
+  chk_QuestJumped_10:     "tag TGT_Jumped_10"
+  chk_QuestJumped_1:      "tag TGT_Jumped_1"
+  chk_QuestComplete:      "tag TGT_Complete"
+
+objectives:
+  #o_chopWood_10:          "block minecraft:mangrove_roots -10 noSafety events:e_chopped notify"
+  o_jump_10:              "jump 10 events:e_jumped10"
+  o_jump_1:               "jump 1 events:e_jumped1"
+
+journal:
+  questDesc:
+    en: "TGT: The &2tutorial guy&0 located in &2spawn&0 has asked you to jump for him."
+
+items:
+  i_QuestToken:           "minecraft:sunflower name:&6#12_The_Greatest_Tutorial lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_QuestReward:          "minecraft:iron_helmet name:&6Iron_Helmet lore:&5I_got_this_for_free enchants:DURABILITY:2"

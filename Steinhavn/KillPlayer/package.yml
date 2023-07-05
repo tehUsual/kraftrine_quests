@@ -1,0 +1,224 @@
+# NPC_QuestGiver: Black
+# Location:       Steinhavn
+
+npcs:
+  '57': "black"
+
+variables:
+  npc1:     "Black"
+  npc2:     "Rotheart"
+  npc3:     "Black"
+
+conversations:
+  black:
+    quester: "Black"
+    #first: welcome_QuestComplete,welcome_NotAvailable,welcome_QuestDeliver,welcome_QuestActive,welcome_StartQuest
+    first: welcome_QuestComplete,welcome_NotAvailable,welcome_QuestDeliver,welcome_QuestActive,welcome_StartQuest
+
+    NPC_options:
+      # Quest Complete
+      welcome_QuestComplete:
+        conditions: "chk_QuestComplete"
+        text: "Greetings fellow revenant."
+        #exit
+
+      # Not Available
+      welcome_NotAvailable:
+        conditions: "!chk_HasWSComplete"
+        text: "You have no business here. Your loyalty has yet to be proven. Talk to &2$npc2$&r"
+        #exit
+
+      # Quest Active
+      welcome_QuestActive:
+        conditions: "chk_QuestStarted,!chk_KilledPlayer_5"
+        text: "You haven't killed all &45&r the players yet."
+        #exit
+
+      # Quest Deliver
+      welcome_QuestDeliver:
+        conditions: "chk_QuestStarted,chk_KilledPlayer_5"
+        text: "Ah, %player%, you have fulfilled the darkest of our desires. Your loyalty to the Remnant Society is undeniable. The blood you've spilled in our name shallforever stain the land,
+               solidifying your place as one of our most treacherous brethren. The realm trembles at your newfound power, and your legend as a true Player Killer shall echo through the ages."
+        pointer: thanksir
+      givethanks:
+        text: "As a welcome, take these. Wear them and display your true intentions."
+        event: e_QuestComplete
+
+
+       # Start Quest
+      welcome_StartQuest:
+        text: "The apprentice has arrived. I see you've proven yourself quite adept at fulfilling our sinister quests thus far. Your dedication to darkness is commendable."
+        pointer: firstmeet
+      metaquest:
+        text: "%player%, the time has come for a truly pivotal task. This quest will test your loyalty and commitment to the Revenant Society like never before. However, I must warn you,
+               once you embark on this path, there will be no turning back."
+        pointer: imout,iunderstand
+      notready:
+        text: "You clearly aren't ready yet. Come back when you are."
+        #exit
+      questdesc:
+        text: "Very well. In order to prove your allegience and dedication, you must venture into the realm of true darkness. Your must engage in battle against
+               other players, those who may have been allies or even friends."
+        pointer: gotdesc
+      youmustu:
+        text: "%player%, you must understand that the Revenant Society thrives on chaos, darkness, and the pursuit of power.
+               This quest is a test of your resolve. Once you embark on this quest, you will forever be branded with the mark of a true villain."
+        pointer: feelswrong
+      doubtis:
+        text: "Doubt is but a flickering candle amidst the shadows, %player%. The Revenant Society requires individuals who are willing
+               to leave their humanity behind and embrace the darkness in their souls."
+        pointer: askrefuse
+      ifrefuse:
+        text: "Refusal of this quest will mark you as weak and unworthy of our teachings and opportunities. Your commitment will be questioned,
+               and your standing within our ranks will diminish. There will be no turning back, no redemption."
+        pointer: decline,accept
+      pdeclined:
+        text: "Very well. You are hereforth on viewed as weak and unworthy. Your rank has been reset. If you wish to join, you need to start over."
+        event: e_Refusal
+        #exit
+      paccepted:
+        text: "Excellent. Your resolve impresses me. Kill &45&r players. Embrace the darkness and let it consume your every action.
+               May your path be paved with chaos and your power unmatched."
+        event: e_QuestStart
+        #exit
+
+
+    player_options:
+      # Start Quest
+      firstmeet:
+        text: "Thank you, sir."
+        pointer: metaquest
+      iunderstand:
+        text: "I understand. Please elaborate."
+        pointer: questdesc
+      imout:
+        text: "Well, I'm out."
+        pointer: notready
+      gotdesc:
+        text: "Wait, you want me to kill other players?"
+        pointer: youmustu
+      feelswrong:
+        text: "I've come this far, but taking the lives of fellow players..."
+        pointer: doubtis
+      askrefuse:
+        text: "What happens if I refuse? Can I still join?"
+        pointer: ifrefuse
+      accept:
+        text: "I understand the risks and consequences."
+        pointer: paccepted
+      decline:
+        text: "I'm sorry, but I cannot forsake my principles."
+        pointer: pdeclined
+      
+      # Quest Delivery
+      thanksir:
+        text: "Thank you, sir."
+        pointer: givethanks
+
+      
+events:
+  # Quests Refused
+  e_Refusal:              "folder e_text_Refused,e_sound_Refused,e_Cleanup,e_ClearQuestLine"
+  e_text_Refused:         "notify &4Deemed weak\n&4Questline has been reset io:title"
+  e_sound_Refused:        "notify io:sound sound:entity.blaze.death soundpitch:0.5"
+  # Clear Quest Line
+  e_ClearQuestLine:       "folder tag_clear_RSVK,tag_clear_RSWK,e_subScore,e_subScore"
+  tag_clear_RSVK:         "tag del Steinhavn-KillVillager.RSVS_Complete"
+  tag_clear_RSWK:         "tag del Steinhavn-KillWolf.RSWS_Complete"
+  e_subScore:             "score quests 1 action:subtract"
+
+
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,tag_add_RSPS_Start,e_startObj_KP_1,chat_QuestStarted,j_add_desc"
+  e_text_QuestStart:      "notify &6Quest Started\n&aAllied Vandetta: Play io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  tag_add_RSPS_Start:     "tag add RSPS_Start"
+  e_startObj_KP_1:        "objective add o_KP_1"
+  chat_QuestStarted:      "command broadcast &c%player% &4has been tasked to execute 5 players. Everyone, watch your back.."
+  j_add_desc:             "journal add questDesc"
+
+  # First player
+  e_Killed_1:             "folder tag_add_KP_1,e_startObj_KP_2,chat_Killed_1"
+  tag_add_KP_1:           "tag add RSPS_KP_1"
+  e_startObj_KP_2:        "objective add o_KP_2"
+  chat_Killed_1:          "command broadcast &c%player% &4the first victim has been claimed. Four to go. Everyone, watch your back.."
+
+  # Seconds player
+  e_Killed_2:             "folder tag_add_KP_2,e_startObj_KP_3,chat_Killed_2"
+  tag_add_KP_2:           "tag add RSPS_KP_2"
+  e_startObj_KP_3:        "objective add o_KP_3"
+  chat_Killed_2:          "command broadcast &c%player% &4the second victim has been claimed. Three to go. Everyone, watch your back.."
+
+  # Third player
+  e_Killed_3:             "folder tag_add_KP_3,e_startObj_KP_4,chat_Killed_3"
+  tag_add_KP_3:           "tag add RSPS_KP_3"
+  e_startObj_KP_4:        "objective add o_KP_4"
+  chat_Killed_3:          "command broadcast &c%player% &4the third victim has been claimed. Two to go. Everyone, watch your back.."
+
+  # Fourth player
+  e_Killed_4:             "folder tag_add_KP_4,e_startObj_KP_5,chat_Killed_4"
+  tag_add_KP_4:           "tag add RSPS_KP_4"
+  e_startObj_KP_5:        "objective add o_KP_5"
+  chat_Killed_4:          "command broadcast &c%player% &4the fourth victim has been claimed. One to go. Everyone, watch your back.."
+
+  # Fifth player
+  e_Killed_5:             "folder tag_add_KP_5,chat_Killed_5"
+  tag_add_KP_5:           "tag add RSPS_KP_5"
+  chat_Killed_5:          "command broadcast &c%player% &4has claimed all 5 victims."
+
+  # Quest Complete
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,e_Cleanup,tag_add_RSPS_Complete,e_exp_Give,e_give_NecroArmor,chat_QuestComplete,e_setNickname,e_addScore"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aRevenant Society: Allied Vandetta io:title"
+  e_text_QuestComplete_2: "notify &aRevenantSociety-AlliedVandetta io:advancement frame:challenge icon:diamond"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  e_give_NecroArmor:      "give i_NecroHelmet:1,i_NecroChest:1,i_NecroLegs:1,i_NecroBoots:1"
+  tag_add_RSPS_Complete:  "tag add RSPS_Complete"
+  e_exp_Give:             "experience 3 action:addLevel"
+  chat_QuestComplete:     "command broadcast &6%player% &2completed the quest: Revenant Society: Allied Vandetta"
+  e_setNickname:          "command nickname %player% &7Evil&r%player%"
+  e_addScore:             "score quests 1 action:add"
+
+  # Cleanup
+  e_Cleanup:              "folder e_Cleanup_tags,e_Cleanup_objs"
+  e_Cleanup_tags:         "folder tag_del_RSPS_KP_1,tag_del_RSPS_KP_2,tag_del_RSPS_KP_3,tag_del_RSPS_KP_4,tag_del_RSPS_KP_5,tag_del_RSPS_Start,j_del_desc"
+  tag_del_RSPS_Start:     "tag del RSPS_Start"
+  tag_del_RSPS_KP_1:      "tag del RSPS_KP_1"
+  tag_del_RSPS_KP_2:      "tag del RSPS_KP_2"
+  tag_del_RSPS_KP_3:      "tag del RSPS_KP_3"
+  tag_del_RSPS_KP_4:      "tag del RSPS_KP_4"
+  tag_del_RSPS_KP_5:      "tag del RSPS_KP_5"
+  e_Cleanup_objs:         "folder e_delObj_KP_1,e_delObj_KP_2,e_delObj_KP_3,e_delObj_KP_4,e_delObj_KP_5"
+  e_delObj_KP_1:          "objective remove o_KP_1"
+  e_delObj_KP_2:          "objective remove o_KP_2"
+  e_delObj_KP_3:          "objective remove o_KP_3"
+  e_delObj_KP_4:          "objective remove o_KP_4"
+  e_delObj_KP_5:          "objective remove o_KP_5"
+  j_del_desc:             "journal delete questDesc"
+
+conditions:
+  chk_HasWSComplete:      "tag Steinhavn-KillWolf.RSWS_Complete"
+  chk_QuestStarted:       "tag RSPS_Start"
+  chk_KilledPlayer_1:     "tag RSPS_KP_1"
+  chk_KilledPlayer_2:     "tag RSPS_KP_2"
+  chk_KilledPlayer_3:     "tag RSPS_KP_3"
+  chk_KilledPlayer_4:     "tag RSPS_KP_4"
+  chk_KilledPlayer_5:     "tag RSPS_KP_5"
+  chk_QuestComplete:      "tag RSPS_Complete"
+
+objectives:
+  o_KP_1:                 "kill 1 events:e_Killed_1"
+  o_KP_2:                 "kill 1 events:e_Killed_2"
+  o_KP_3:                 "kill 1 events:e_Killed_3"
+  o_KP_4:                 "kill 1 events:e_Killed_4"
+  o_KP_5:                 "kill 1 events:e_Killed_5"
+
+journal:
+  questDesc:
+    en: "RSPS: &2Black&0 located in &2Steinhavn&0 has asked you to kill 5 players."
+
+items:
+  i_QuestToken:           "minecraft:sunflower name:&6#7_Revenant_Society:_Allied_Vandetta lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"
+  i_NecroHelmet:          "minecraft:leather_helmet name:&6Necro_Helmet lore:&5Revenant_Society_Armor color:#131418 enchants:PROTECTION_FIRE:4"
+  i_NecroChest:           "minecraft:leather_chestplate name:&6Necro_Chestplate lore:&5Revenant_Society_Armor color:#131418 enchants:PROTECTION_FIRE:4"
+  i_NecroLegs:            "minecraft:leather_leggings name:&6Necro_Leggings lore:&5Revenant_Society_Armor color:#131418 enchants:PROTECTION_FIRE:4"
+  i_NecroBoots:           "minecraft:leather_boots name:&6Necro_Boots lore:&5Revenant_Society_Armor color:#131418 enchants:PROTECTION_FIRE:4"

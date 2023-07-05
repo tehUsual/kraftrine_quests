@@ -1,0 +1,18 @@
+compass:
+  spawn:
+    name:
+      en: Spawn
+    location: -3219;72;-4399;world
+    item: i_Compass
+
+events:
+  e_setupCompass:       "folder e_addSpawnPos,e_giveCompass conditions:!chk_HasCompass"
+  e_addSpawnPos:        "compass add spawn"
+  e_giveCompass:        "give i_MainCompass:1 backpack"
+
+conditions:
+  chk_HasCompass:       "item i_MainCompass:1"
+
+items:
+  i_Compass:            "minecraft:compass"
+  i_MainCompass:        "minecraft:compass lore:&2Quest_Item enchants:DURABILITY:1 flags:HIDE_ENCHANTS"

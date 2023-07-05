@@ -1,0 +1,376 @@
+npcs:
+  '79':   "tingle_riverkeep"
+  '80':   "tingle_frostedge"
+  '81':   "tingle_borecrest"
+  '82':   "tingle_newledge"
+  '83':   "tingle_crownholm"
+  '84':   "tingle_steinhavn"
+  '85':   "tingle_linedale"
+  '86':   "tingle_fungalflats"
+  '87':   "tingle_pufferport"
+  '88':   "tingle_thrallhaven"
+  '89':   "tingle_littledew"
+  '90':   "tingle_wilderridge"
+  '91':   "tingle_norwatch"
+
+conversations:
+  tingle_riverkeep:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_riverkeep"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_riverkeep
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_frostedge:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_frostedge"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_frostedge
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_borecrest:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_borecrest"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_borecrest
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_newledge:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_newledge"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_newledge
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_crownholm:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_crownholm"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_crownholm
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_steinhavn:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_steinhavn"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_steinhavn
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_linedale:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_linedale"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_linedale
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_fungalflats:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_fungalflats"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_fungalflats
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_pufferport:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_pufferport"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_pufferport
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_thrallhaven:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_thrallhaven"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_thrallhaven
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_littledew:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_littledew"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_littledew
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_wilderridge:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_wilderridge"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_wilderridge
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+  tingle_norwatch:
+    quester: "Tingle"
+    first: welcome,found
+
+    NPC_options:
+      # Sentence
+      welcome:
+        conditions: "!chk_found_norwatch"
+        text: ".                &5* . °•★|•°∵ ∵°•|☆•° . *&r\n.                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\nThat fragrant musty scent! You have found me! Splendid! Splendid!\n
+               .                &a─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───&r\n.                &5* . °•★|•°∵ ∵°•|☆•° . *&r"
+        event: e_fol_norwatch
+        #exit
+      found:
+        text: "\nYou can only find me once! That's fair, isn't it? Isn't it? Isn't it?"
+        #exit
+
+
+events:
+  # Global
+  e_base:                   "folder e_exp_Give,e_sound_magic,e_text_QuestComplete,e_addScore"
+  e_exp_Give:               "experience 2 action:addLevel"
+  e_sound_magic:            "notify io:sound sound:block.enchantment_table.use"
+  e_text_QuestComplete:     "notify &a\n&aYou found a tingle! io:title"
+  e_addScore:               "score quests 1 action:add"
+  e_give_Diamond:           "give i_Diamond:1"
+  e_give_Saddle:            "give i_Saddle:1"
+  e_give_Cake:              "give i_Cake:1"
+  e_give_EggHorse:          "give i_EggHorse:1"
+  e_give_EggGlowSquid:      "give i_EggGlowSquid:1"
+  e_give_EggAllay:          "give i_EggAllay:1"
+  e_give_WitherSkull:       "give i_WitherSkull:1"
+
+  # Hard reset
+  e_RESET:                  "folder e_reset_1,e_reset_2"
+  e_reset_1:                "folder tag_del_riverkeep,tag_del_frostedge,tag_del_borecrest,tag_del_newledge,tag_del_crownholm,tag_del_steinhavn"
+  e_reset_2:                "folder tag_del_linedale,tag_del_fungalflats,tag_del_pufferport,tag_del_thrallhaven,tag_del_littledew,tag_del_wilderridge,tag_del_norwatch"
+  tag_del_riverkeep:        "tag del GT_Riverkeep"
+  tag_del_frostedge:        "tag del GT_Frostedge"
+  tag_del_borecrest:        "tag del GT_Borecrest"
+  tag_del_newledge:         "tag del GT_Newledge"
+  tag_del_crownholm:        "tag del GT_Crownholm"
+  tag_del_steinhavn:        "tag del GT_Steinhavn"
+  tag_del_linedale:         "tag del GT_Linedale"
+  tag_del_fungalflats:      "tag del GT_Fungalflats"
+  tag_del_pufferport:       "tag del GT_Pufferport"
+  tag_del_thrallhaven:      "tag del GT_Thrallhaven"
+  tag_del_littledew:        "tag del GT_Littledew"
+  tag_del_wilderridge:      "tag del GT_Wilderride"
+  tag_del_norwatch:         "tag del GT_Norwatch"
+  
+
+  # Riverkeep
+  e_fol_riverkeep:          "folder e_base,tag_add_riverkeep,e_token_riverkeep,chat_riverkeep,e_give_Cake"
+  tag_add_riverkeep:        "tag add GT_Riverkeep"
+  e_token_riverkeep:        "give i_TokenRiverkeep:1"
+  chat_riverkeep:           "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Riverkeep!"
+
+  # Frostedge
+  e_fol_frostedge:          "folder e_base,tag_add_frostedge,e_token_frostedge,chat_frostedge,e_give_Diamond"
+  tag_add_frostedge:        "tag add GT_Frostedge"
+  e_token_frostedge:        "give i_TokenFrostedge:1"
+  chat_frostedge:           "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Frostedge!"
+
+  # Borecrest
+  e_fol_borecrest:          "folder e_base,tag_add_borecrest,e_token_borecrest,chat_borecrest,e_give_Cake"
+  tag_add_borecrest:        "tag add GT_Borecrest"
+  e_token_borecrest:        "give i_TokenBorecrest:1"
+  chat_borecrest:           "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Borecrest!"
+
+  # Newledge
+  e_fol_newledge:           "folder e_base,tag_add_newledge,e_token_newledge,chat_newledge,e_give_WitherSkull"
+  tag_add_newledge:         "tag add GT_Newledge"
+  e_token_newledge:         "give i_TokenNewledge:1"
+  chat_newledge:            "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Newledge!"
+
+  # Crownholm
+  e_fol_crownholm:          "folder e_base,tag_add_crownholm,e_token_crownholm,chat_crownholm,e_give_Saddle"
+  tag_add_crownholm:        "tag add GT_Crownholm"
+  e_token_crownholm:        "give i_TokenCrownholm:1"
+  chat_crownholm:           "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Crownholm!"
+
+  # Steinhavn
+  e_fol_steinhavn:          "folder e_base,tag_add_steinhavn,e_token_steinhavn,chat_steinhavn,e_give_Saddle"
+  tag_add_steinhavn:        "tag add GT_Steinhavn"
+  e_token_steinhavn:        "give i_TokenSteinhavn:1"
+  chat_steinhavn:           "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Steinhavn!"
+
+  # Linedale
+  e_fol_linedale:           "folder e_base,tag_add_linedale,e_token_linedale,chat_linedale,e_give_EggHorse"
+  tag_add_linedale:         "tag add GT_Linedale"
+  e_token_linedale:         "give i_TokenLinedale:1"
+  chat_linedale:            "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Linedale!"
+
+  # Fungalflats
+  e_fol_fungalflats:        "folder e_base,tag_add_fungalflats,e_token_fungalflats,chat_fungalflats,e_give_EggHorse"
+  tag_add_fungalflats:      "tag add GT_Fungalflats"
+  e_token_fungalflats:      "give i_TokenFungalflats:1"
+  chat_fungalflats:         "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Fungalflats!"
+
+  # Pufferport
+  e_fol_pufferport:         "folder e_base,tag_add_pufferport,e_token_pufferport,chat_pufferport,e_give_EggGlowSquid"
+  tag_add_pufferport:       "tag add GT_Pufferport"
+  e_token_pufferport:       "give i_TokenPufferport:1"
+  chat_pufferport:          "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Pufferport!"
+
+  # Thrallhaven
+  e_fol_thrallhaven:        "folder e_base,tag_add_thrallhaven,e_token_thrallhaven,chat_thrallhaven,e_give_EggGlowSquid"
+  tag_add_thrallhaven:      "tag add GT_Thrallhaven"
+  e_token_thrallhaven:      "give i_TokenThrallhaven:1"
+  chat_thrallhaven:         "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Thrallhaven!"
+
+  # Littledew
+  e_fol_littledew:          "folder e_base,tag_add_littledew,e_token_littledew,chat_littledew,e_give_EggAllay"
+  tag_add_littledew:        "tag add GT_Littledew"
+  e_token_littledew:        "give i_TokenLittledew:1"
+  chat_littledew:           "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Littledew!"
+
+  # Wilderridge
+  e_fol_wilderridge:        "folder e_base,tag_add_wilderridge,e_token_wilderridge,chat_wilderridge,e_give_EggAllay"
+  tag_add_wilderridge:      "tag add GT_Wilderridge"
+  e_token_wilderridge:      "give i_TokenWilderridge:1"
+  chat_wilderridge:         "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Wilderridge!"
+
+  # Norwatch
+  e_fol_norwatch:           "folder e_base,tag_add_norwatch,e_token_norwatch,chat_norwatch,e_give_Diamond"
+  tag_add_norwatch:         "tag add GT_Norwatch"
+  e_token_norwatch:         "give i_TokenNorwatch:1"
+  chat_norwatch:            "command broadcast &6%player% &2found a &5T&6i&bn&ag&dl&5e&2 in Norwatch!"
+
+
+conditions:
+  chk_found_riverkeep:      "tag GT_Riverkeep"
+  chk_found_frostedge:      "tag GT_Frostedge"
+  chk_found_borecrest:      "tag GT_Borecrest"
+  chk_found_newledge:       "tag GT_Newledge"
+  chk_found_crownholm:      "tag GT_Crownholm"
+  chk_found_steinhavn:      "tag GT_Steinhavn"
+  chk_found_linedale:       "tag GT_Linedale"
+  chk_found_fungalflats:    "tag GT_Fungalflats"
+  chk_found_pufferport:     "tag GT_Pufferport"
+  chk_found_thrallhaven:    "tag GT_Thrallhaven"
+  chk_found_littledew:      "tag GT_Littledew"
+  chk_found_wilderridge:    "tag GT_Wilderridge"
+  chk_found_norwatch:       "tag GT_Norwatch"
+
+
+items:
+  i_Diamond:                "minecraft:diamond"
+  i_Cake:                   "minecraft:cake"
+  i_Saddle:                 "minecraft:saddle"
+  i_EggHorse:               "minecraft:horse_spawn_egg"
+  i_EggAllay:               "minecraft:allay_spawn_egg"
+  i_EggGlowSquid:           "minecraft:glow_squid_spawn_egg"
+  i_WitherSkull:            "minecraft:wither_skeleton_skull"
+
+  i_TokenRiverkeep:         "minecraft:sunflower name:&6#14_Tingle:_Riverkeep lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenFrostedge:         "minecraft:sunflower name:&6#15_Tingle:_Frostedge lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenBorecrest:         "minecraft:sunflower name:&6#16_Tingle:_Borecrest lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenNewledge:          "minecraft:sunflower name:&6#17_Tingle:_Newledge lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenCrownholm:         "minecraft:sunflower name:&6#18_Tingle:_Crownholm lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenSteinhavn:         "minecraft:sunflower name:&6#19_Tingle:_Steinhavn lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenLinedale:          "minecraft:sunflower name:&6#20_Tingle:_Linedale lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenFungalflats:       "minecraft:sunflower name:&6#21_Tingle:_Fungalflats lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenPufferport:        "minecraft:sunflower name:&6#22_Tingle:_Pufferport lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenThrallhaven:       "minecraft:sunflower name:&6#23_Tingle:_Thrallhaven lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenLittledew:         "minecraft:sunflower name:&6#24_Tingle:_Littledew lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenWilderridge:       "minecraft:sunflower name:&6#25_Tingle:_Wilderridge lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_TokenNorwatch:          "minecraft:sunflower name:&6#26_Tingle:_Norwatch lore:&5Tingle_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"

@@ -1,0 +1,12 @@
+
+
+events:
+  # Cat killer
+  e_notifKilledCat:       "command broadcast &6%player% &4just killed a CAT?!?"
+
+  e_loveParticles:        "command particle minecraft:heart %location.xyz% 0.5 2 0.5 0.2 10 normal"
+
+
+objectives:
+  # Cat killer
+  o_killCat:              "mobkill CAT 1 events:e_notifKilledCat"

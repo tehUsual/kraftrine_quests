@@ -1,0 +1,622 @@
+npcs:
+  '39': "pm_0"
+  '42': "pm_1"
+  '43': "pm_2"
+  '44': "pm_3"
+  '45': "pm_4"
+  '46': "pm_5"
+  '47': "pm_6"
+  '48': "pm_7"
+  '49': "pm_8"
+  '50': "pm_9"
+  '51': "pm_10"
+  '52': "pm_11"
+  '53': "pm_12"
+  '102': "drreward"
+  '103': "adventurer"
+  '104': "wizzy"
+
+variables:
+  spawn: -3219;72;-4399;world
+  entry: -3221;24;-4399;world
+  btn1:  -3219;74;-4354;world
+  btn2:  -3229;75;-4455;world
+  btn3:  -3224;63;-4399;world
+
+conversations:
+  adventurer:
+    quester: "Puzzled Adventurer"
+    first: welcome
+
+    NPC_options:
+      welcome: 
+        text: "There's... something here... but I can't find it..."
+        pointer: something
+      desc:
+        text: "Yeah. A guy in a cold village to the far south-west rambled on about something hidden. He said it would be here.."
+        pointer: interesting,nah
+
+    player_options:
+      something:
+        condition: "!chk_QuestStarted"
+        text: "Something here?"
+        pointer: desc
+      interesting:
+        text: "Interesting.."
+        event: e_QuestStart
+      nah:
+        text: "Well have fun."
+        #exit
+
+  wizzy:
+    quester: "Wizzy the Wizard"
+    first: first,welcome
+
+    NPC_options:
+      # Not started
+      first:
+        condition: "!chk_QuestStarted"
+        text: "... god damn.. &4SPideR WeebS&r.. !!\n\noh.. you're not.. ready.. yet.. soon tho.. ready.. yes.."
+        #exit
+      welcome:
+        condition: "chk_QuestStarted"
+        text: "... god damn.. &4SPideR WeebS&r.. !!"
+        pointer: woa
+      ohhi:
+        text: "Oh.. yes.. mm hello.. there. I didn't see you... No, did not see him.. no.. we did not."
+        pointer: we,bye
+      us:
+        text: "Yes.. hrm. no, we, we are... us.. we"
+        pointer: need
+      ineed:
+        text: "Need, yes.. spawn.. button.. secret.. no.. nonsense.. random.. indeed.. button.. who?\n\nyes, mushroom.. secret.. challenge.. answer.. lies in spaw&4ERR:// brain.. melt.."
+        event: e_fol_MetWizzy
+        #exit
+      
+    player_options:
+      woa:
+        text: "Woah.."
+        pointer: ohhi
+      we:
+        text: "We?"
+        pointer: us
+      bye:
+        text: "Right... see you"
+        #exit
+      need:
+        text: "Do you need anything?"
+        pointer: ineed
+      
+
+
+  # Entry
+  pm_0:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: A key to mystery awaits beyond the threshold, but only you possess the power to unfold."
+        event: e_hint_0
+      goodbye:
+        text: "Farewell!"
+    
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 1 - button
+  pm_1:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: Within this enigmatic chamber, a secret lies concealed, where curiosity thrives and fate is revealed, for only by your touch, the button shall yield."
+        event: e_hint_1
+      goodbye:
+        text: "Farewell!"
+    
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 2 - button behind
+  pm_2:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: In plain sight it's not, a clue veiled afar, seek elsewhere, dear wanderer, where secrets are."
+        event: e_hint_2
+      goodbye:
+        text: "Farewell!"
+    
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 3 - button in cracks
+  pm_3:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: To find the answer, eyes must roam and rove, explore the creeks and cracks where truth does clove."
+        event: e_hint_3
+      goodbye:
+        text: "Farewell!"
+    
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 4 - many buttons
+  pm_4:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: Within the array, a puzzle unfolds, test each button, the truth it beholds."
+        event: e_hint_4
+      goodbye:
+        text: "Farewell!"
+    
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 5 - weird doors
+  pm_5:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: Through veils of mystery, the answer awaits, concealed behind an enigmatic gate."
+        event: e_hint_5
+      goodbye:
+        text: "Farewell!"
+    
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 6 - button on floor
+  pm_6:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: Camouflaged in plain sight, the answer eludes, a visual puzzle where perception intrudes."
+        event: e_hint_6
+      goodbye:
+        text: "Farewell!"
+    
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 7 - water column
+  pm_7:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: Submerged in aqueous depths, the answer resides, a hidden secret where the water hides."
+        event: e_hint_7
+      goodbye:
+        text: "Farewell!"
+
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 8 - lava column
+  pm_8:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: Amidst the grey blocks, the answer is concealed, a hidden truth waiting to be revealed."
+        event: e_hint_8
+      goodbye:
+        text: "Farewell!"
+
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 9 - chest
+  pm_9:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: Within a container's embrace, the answer rests, a riddle concealed in its guarded nests."
+        event: e_hint_9
+      goodbye:
+        text: "Farewell!"
+
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 10 - 4 buttons
+  pm_10:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: In the realm of riddles, a clue shall unfurl, where the enigma lies within the number four."
+        event: e_hint_10
+      goodbye:
+        text: "Farewell!"
+
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 11 - button in wall
+  pm_11:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: Between the walls, a secret lies concealed, where answers echo, waiting to be revealed."
+        event: e_hint_11
+      goodbye:
+        text: "Farewell!"
+
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Puzzle 12 - final
+  pm_12:
+    quester: "PuzzleMaster"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "Top of the morning!"
+        pointer: askhint,getmeout,bye
+      hint:
+        text: "Hint: Crack the code, unravel the maze, the answer lies in the sequence's embrace."
+        event: e_hint_12
+      goodbye:
+        text: "Farewell!"
+
+    player_options:
+      askhint:
+        text: "Give me a hint."
+        pointer: hint
+      getmeout:
+        text: "Get me out of here."
+        pointer: goodbye
+        event: e_folderExit
+      bye:
+        text: "Bye."
+        pointer: goodbye
+        #exit
+
+  # Reward
+  drreward:
+    quester: "Dr.Reward"
+    first: alreadyLooted,giveloot
+    NPC_options:
+      # Giving loot
+      giveloot:
+        conditions: "!chk_gotLoot"
+        text: "Water teaches us patience. It slowly carves magnificent canyons and shapes landscapes, reminding us that great things take time.\n\nYou have earned your reward."
+        pointer: getreward
+      rewardlist:
+        text: "1x  Potion of Luck (5:00)\n64x Bottle o' Enchanting\n1x  Diamond Ore\n2x  Frospawn\n1x  Dungeon Token"
+        event: e_CompleteDungeon
+        pointer: gethome
+
+      # Already looted
+      alreadyLooted:
+        conditions: "chk_gotLoot"
+        text: "You already got your share!"
+        pointer: gethome
+
+    player_options:
+      # Giving loot
+      getreward:
+        text: "..."
+        pointer: rewardlist
+      gethome:
+        text: "Get me out of here."
+        event: e_folderExit
+
+
+events:
+  # Quest Start
+  e_QuestStart:             "folder e_text_QuestStart,e_sound_QuestBegin,tag_add_PD_Start,j_add_desc"
+  e_text_QuestStart:        "notify &6Quest Started\n&aA Secret in Spawn io:title"
+  e_sound_QuestBegin:       "notify io:sound sound:entity.player.levelup"
+  tag_add_PD_Start:         "tag add PD_Start"
+  j_add_desc:               "journal add questDesc"
+
+  # Met Wizzy
+  e_fol_MetWizzy:           "folder tag_add_PD_MetWizzy,o_add_Btn_1"
+  tag_add_PD_MetWizzy:      "tag add PD_MetWizzy"
+  o_add_Btn_1:              "objective add o_pushBtn_1"
+
+  # Btn1
+  e_fol_Btn1:               "folder tag_add_PD_Btn_1,e_text_Hint2,o_add_Btn_2"
+  tag_add_PD_Btn_1:         "tag add PD_Btn_1"
+  e_text_Hint2:             "notify &2One button pressed. Two more to go. A stone that glows. io:subtitle"
+  o_add_Btn_2:              "objective add o_pushBtn_2"
+
+  # Btn2
+  e_fol_Btn2:               "folder tag_add_PD_Btn_2,e_text_Hint3,o_add_Btn_3"
+  tag_add_PD_Btn_2:         "tag add PD_Btn_2"
+  e_text_Hint3:             "notify &2Two button pressed. One more to go. Big water circle. io:subtitle"
+  o_add_Btn_3:              "objective add o_pushBtn_3"
+
+  # Btn3
+  e_fol_Btn3:               "folder tag_add_PD_Btn_3,o_add_Btn_3,e_folderEntry"
+  tag_add_PD_Btn_3:         "tag add PD_Btn_3"
+  o_add_Btn_3:              "objective add o_pushBtn_3"
+
+
+  # Teleports
+  e_tpSpawn:                "teleport $spawn$"
+  e_tpPuzzle:               "teleport $entry$"
+
+  # Exit
+  e_folderExit:             "folder e_tpSpawn"
+
+  # Entry
+  e_folderEntry:            "folder e_tpPuzzle"
+
+  # Hints
+  e_hint_0:                 "folder e_add_point_0,e_tag_add_hint_0"
+  e_hint_1:                 "folder e_add_point_1,e_tag_add_hint_1"
+  e_hint_2:                 "folder e_add_point_2,e_tag_add_hint_2"
+  e_hint_3:                 "folder e_add_point_3,e_tag_add_hint_3"
+  e_hint_4:                 "folder e_add_point_4,e_tag_add_hint_4"
+  e_hint_5:                 "folder e_add_point_5,e_tag_add_hint_5"
+  e_hint_6:                 "folder e_add_point_6,e_tag_add_hint_6"
+  e_hint_7:                 "folder e_add_point_7,e_tag_add_hint_7"
+  e_hint_8:                 "folder e_add_point_8,e_tag_add_hint_8"
+  e_hint_9:                 "folder e_add_point_9,e_tag_add_hint_9"
+  e_hint_10:                "folder e_add_point_10,e_tag_add_hint_10"
+  e_hint_11:                "folder e_add_point_11,e_tag_add_hint_11"
+  e_hint_12:                "folder e_add_point_12,e_tag_add_hint_12"
+
+  e_tag_add_hint_0:         "tag add PD_Hint_0"
+  e_tag_add_hint_1:         "tag add PD_Hint_1"
+  e_tag_add_hint_2:         "tag add PD_Hint_2"
+  e_tag_add_hint_3:         "tag add PD_Hint_3"
+  e_tag_add_hint_4:         "tag add PD_Hint_4"
+  e_tag_add_hint_5:         "tag add PD_Hint_5"
+  e_tag_add_hint_6:         "tag add PD_Hint_6"
+  e_tag_add_hint_7:         "tag add PD_Hint_7"
+  e_tag_add_hint_8:         "tag add PD_Hint_8"
+  e_tag_add_hint_9:         "tag add PD_Hint_9"
+  e_tag_add_hint_10:        "tag add PD_Hint_10"
+  e_tag_add_hint_11:        "tag add PD_Hint_11"
+  e_tag_add_hint_12:        "tag add PD_Hint_12"
+
+  # Add hint points
+  e_add_point_0:            "point PD_Hint 1 action:add conditions:!chk_hint_0"
+  e_add_point_1:            "point PD_Hint 1 action:add conditions:!chk_hint_1"
+  e_add_point_2:            "point PD_Hint 1 action:add conditions:!chk_hint_2"
+  e_add_point_3:            "point PD_Hint 1 action:add conditions:!chk_hint_3"
+  e_add_point_4:            "point PD_Hint 1 action:add conditions:!chk_hint_4"
+  e_add_point_5:            "point PD_Hint 1 action:add conditions:!chk_hint_5"
+  e_add_point_6:            "point PD_Hint 1 action:add conditions:!chk_hint_6"
+  e_add_point_7:            "point PD_Hint 1 action:add conditions:!chk_hint_7"
+  e_add_point_8:            "point PD_Hint 1 action:add conditions:!chk_hint_8"
+  e_add_point_9:            "point PD_Hint 1 action:add conditions:!chk_hint_9"
+  e_add_point_10:           "point PD_Hint 1 action:add conditions:!chk_hint_10"
+  e_add_point_11:           "point PD_Hint 1 action:add conditions:!chk_hint_11"
+  e_add_point_12:           "point PD_Hint 1 action:add conditions:!chk_hint_12"
+
+  # Give reward
+  e_CompleteDungeon:        "folder e_text_DungeonComplete,e_text_DungeonComplete_2,tag_add_looted,chat_DungeonComplete,e_loot,e_addScore,j_del_desc"
+  e_text_DungeonComplete:   "notify &aDungeon Complete\n&aPuzzle io:title"
+  e_text_DungeonComplete_2: "notify &aPuzzle_Dungeon io:advancement frame:challenge icon:diamond"
+  tag_add_looted:           "tag add PD_Looted"
+  chat_DungeonComplete:     "command broadcast &6%player% &2completed the Puzzle Dungeon with the help of &4%point.PD_Hint.amount%&2 hints!"
+  e_loot:                   "give i_potion:1,i_expBtl:64,i_diamond_ore:1,i_frogspawn:2,i_DungeonToken"
+  e_addScore:               "score quests 1 action:add"
+  j_del_desc:               "journal delete questDesc"
+
+  # Cleanup
+  #e_cleanup:                "folder "
+
+conditions:
+  chk_gotLoot:              "tag PD_Looted"
+  chk_QuestStarted:         "tag PD_Start"
+  chk_MetWizzy:             "tag PD_MetWizzy"
+  chk_Btn1:                 "tag PD_Btn_1"
+  chk_Btn2:                 "tag PD_Btn_2"
+  chk_Btn3:                 "tag PD_Btn_3"
+  chk_Btn_23:               "or chk_Btn2,chk_Btn3"
+
+  chk_hint_0:               "tag PD_Hint_0"
+  chk_hint_1:               "tag PD_Hint_1"
+  chk_hint_2:               "tag PD_Hint_2"
+  chk_hint_3:               "tag PD_Hint_3"
+  chk_hint_4:               "tag PD_Hint_4"
+  chk_hint_5:               "tag PD_Hint_5"
+  chk_hint_6:               "tag PD_Hint_6"
+  chk_hint_7:               "tag PD_Hint_7"
+  chk_hint_8:               "tag PD_Hint_8"
+  chk_hint_9:               "tag PD_Hint_9"
+  chk_hint_10:              "tag PD_Hint_10"
+  chk_hint_11:              "tag PD_Hint_11"
+  chk_hint_12:              "tag PD_Hint_12"
+
+journal:
+  questDesc:
+    en: "ASIS: A &2Puzzled Adventurer&0 located in &2Spawn&0 said someone in a cold village to the far south-west might know something about a secret in spawn."
+
+objectives:
+  o_pushBtn_1:              "action right any conditions:chk_MetWizzy loc:$btn1$ events:e_fol_Btn1"
+  o_pushBtn_2:              "action right any conditions:chk_Btn1 loc:$btn2$ events:e_fol_Btn2"
+  o_pushBtn_3:              "action right any conditions:chk_Btn_23 loc:$btn3$ events:e_fol_Btn3"
+
+items:
+  i_potion:                 "minecraft:potion type:LUCK"
+  i_expBtl:                 "minecraft:experience_bottle"
+  i_diamond_ore:            "minecraft:deepslate_diamond_ore"
+  i_frogspawn:              "minecraft:frogspawn"
+  i_DungeonToken:           "minecraft:sunflower name:&6#27_Puzzle_Dungeon lore:&5Dungeon_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"

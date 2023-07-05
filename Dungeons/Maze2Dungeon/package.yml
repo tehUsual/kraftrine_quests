@@ -1,0 +1,55 @@
+npcs:
+  '148':  "grloot"
+
+conversations:
+  grloot:
+    quester: "Grandpa Loot"
+    first: alreadyLooted,giveloot
+
+    NPC_options:
+      # Giving loot
+      giveloot:
+        conditions: "!chk_gotLoot"
+        text: "It's a lot easier to complete a maze if you start at the end. ;)\n\nYou have earned your reward."
+        pointer: getreward
+      rewardlist:
+        text: "4x  Shulker spawn eggs\n64x Fireworks\n4x  Diamond Ore\n1x  Dragon egg\n1x  Book of mending\n1x  Dungeon Token"
+        event: e_CompleteDungeon
+        #exit
+
+      # Already looted
+      alreadyLooted:
+        conditions: "chk_gotLoot"
+        text: "You already got your share!"
+        #exit
+
+
+    player_options:
+      # Giving loot
+      getreward:
+        text: "..."
+        pointer: rewardlist
+
+
+events:
+  # Give reward
+  e_CompleteDungeon:        "folder e_text_DungeonComplete,e_text_DungeonComplete_2,tag_add_looted,chat_DungeonComplete,e_loot,e_addScore"
+  e_text_DungeonComplete:   "notify &aDungeon Complete\n&aBig Maze io:title"
+  e_text_DungeonComplete_2: "notify &aBig_Maze_Dungeon io:advancement frame:challenge icon:diamond"
+  tag_add_looted:           "tag add M2D_Looted"
+  chat_DungeonComplete:     "command broadcast &6%player% &2completed the &lBig&r&2 Maze Dungeon"
+  e_loot:                   "give i_shulkerEgg:4,i_fireworks:64,i_dragonEgg:1,i_diamond_ore:4,i_mending:1"
+  e_addScore:               "score quests 1 action:add"
+
+
+conditions:
+  chk_gotLoot:              "tag M2D_Looted"
+
+
+items:
+  i_shulkerEgg:             "minecraft:shulker_spawn_egg"
+  i_fireworks:              "minecraft:firework_rocket"
+  i_dragonEgg:              "minecraft:dragon_egg"
+  i_diamond_ore:            "minecraft:deepslate_diamond_ore"
+  i_mending:                "minecraft:enchanted_book enchants:MENDING:1"
+  i_DungeonToken:           "minecraft:sunflower name:&6#29_Big_Maze_Dungeon lore:&5Dungeon_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS"

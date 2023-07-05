@@ -1,0 +1,129 @@
+npcs:
+  '77':   "info"
+
+conversations:
+  info:
+    quester: "Info Girl"
+    first: welcome_QuestComplete,welcome_QuestDeliver,welcome_QuestActive,welcome_StartQuest,welcome_Unavailable
+
+    NPC_options:
+      # Quest Complete
+      welcome_QuestComplete:
+        conditions: "chk_QuestComplete"
+        text: "Hello!\n\n* Open your journal if you get confused\n* Open your backpack with /backpack\n* Have fun."
+        #exit
+
+      # Start Quest
+      welcome_StartQuest:
+        conditions: "chk_TutorialComplete"
+        text: "Hello %player%!\n\nThere's two more things you should know."
+        pointer: uhu1
+      desc:
+        text: "Every player is equiped with their own quest backpack. This is sadly only for keeping quest items.
+               Important quest items can be stored there. If you die, the quest items will be stored away in backpack."
+        pointer: gotit
+      desc2:
+        text: "You'll also find a quest journal in your backpack, which contains info about your current active quests.
+               To open your backpack, simply enter this command in the chat:\n\n/backpack"
+        pointer: ohnice
+      desc3:
+        text: "Let's try it out! I'll put an item in your backpack.\n&2Hold it in your hand&r, then talk to me!"
+        pointer: pstart
+
+      # Unavailable
+      welcome_Unavailable:
+        conditions: "!chk_TutorialComplete"
+        text: "Hi! Please talk to the &2Tutorial Guy&r first. :)"
+        #exit
+
+      # Quest Active
+      welcome_QuestActive:
+        conditions: "chk_QuestStarted"
+        text: "It.. doesn't seem like you're holding the item. Try again!"
+        #exit
+      
+      # Quest Deliver
+      welcome_QuestDeliver:
+        conditions: "chk_QuestStarted,chk_HasItemInHand"
+        text: "Do you have it?"
+        pointer: igotit,idontgotit
+      yougotit:
+        text: "Great! Let me just.. take it back."
+        pointer: hereugo
+      yesyoudo:
+        text: "Yes you do. Give it here."
+        pointer: hereugo2
+
+
+    player_options:
+      # Start Quest
+      uhu1:
+        text: "Uhu?"
+        pointer: desc
+      gotit:
+        text: "Got it."
+        pointer: desc2
+      ohnice:
+        text: "Oh nice!"
+        pointer: desc3
+      pstart:
+        text: "Ok!"
+        event: e_QuestStart
+
+      # Quest Deliver
+      igotit:
+        text: "I do."
+        pointer: yougotit
+      idontgotit:
+        text: "I don't.."
+        pointer: yesyoudo
+      hereugo:
+        text: "Here you go."
+        event: e_QuestComplete
+      hereugo2:
+        text: "Oh.. ok"
+        event: e_QuestComplete
+
+
+
+
+events:
+  # Quest Start
+  e_QuestStart:           "folder e_text_QuestStart,e_sound_QuestBegin,tag_add_BUI_Start,e_give_QuestItem,j_add_desc"
+  e_text_QuestStart:      "notify &6Quest Started\n&aBoring yet Useful Info io:title"
+  e_sound_QuestBegin:     "notify io:sound sound:entity.player.levelup"
+  tag_add_BUI_Start:      "tag add BUI_Start"
+  e_give_QuestItem:       "give i_QuestItem:1 notify backpack"
+  j_add_desc:             "journal add questDesc"
+
+  # Quest Complete
+  e_QuestComplete:        "folder e_text_QuestComplete,e_text_QuestComplete_2,e_give_QuestToken,tag_add_BUI_Complete,e_exp_Give,chat_QuestComplete,e_addScore,e_cleanup,e_take_QuestItem,j_del_desc"
+  e_text_QuestComplete:   "notify &aQuest Complete\n&aBoring yet Useful Info io:title"
+  e_text_QuestComplete_2: "notify &aBoring_yet_Useful_Info io:advancement frame:challenge icon:diamond"
+  e_give_QuestToken:      "give i_QuestToken:1"
+  tag_add_BUI_Complete:   "tag add BUI_Complete"
+  e_exp_Give:             "experience 3 action:addLevel"
+  chat_QuestComplete:     "command broadcast &6%player% &2completed the quest: Boring yet Useful Info"
+  e_addScore:             "score quests 1 action:add"
+
+  # Cleanup
+  e_cleanup:              "folder tag_del_BUI_Start,e_take_QuestItem,j_del_desc"
+  tag_del_BUI_Start:      "tag del BUI_Start"
+  e_take_QuestItem:       "take i_QuestItem:1"
+  j_del_desc:             "journal delete questDesc"
+
+
+
+conditions:
+  chk_TutorialComplete:     "tag Spawn-Tutorial.TGT_Complete"
+  chk_QuestStarted:         "tag BUI_Start"
+  chk_QuestComplete:        "tag BUI_Complete"
+  chk_HasItemInHand:        "hand i_QuestItem"
+
+journal:
+  questDesc:
+    en: "TGT: The &2info girl&0 located in &2spawn&0 has asked you to give her something from your backpack."
+
+items:
+  i_QuestToken:             "minecraft:sunflower name:&6#13_Boring_yet_Useful_Info lore:&5Quest_Token enchants:DURABILITY:1 flags:HIDE_ENCHANTS flags:HIDE_ENCHANTS"
+  i_QuestItem:              "minecraft:dirt name:&6Dirty_Dirt lore:&2Quest_Item"

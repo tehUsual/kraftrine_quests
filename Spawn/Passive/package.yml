@@ -1,0 +1,113 @@
+npcs:
+  '78':   "tingle"
+  '134':  "banned1"
+
+conversations:
+  tingle:
+    quester: "Tingle"
+    first: welcome
+
+    NPC_options:
+      # Sentence
+      welcome:
+        text: " Hmmmmm?!?\n\n  In a realm of secrets and scattered homes\n    Thirteen villages lie, where a green fellow roams."
+        pointer: "what"
+      magic:
+        text: ".                * . °•★|•°∵ ∵°•|☆•° . *\n.                ─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───\n₊˚ʚ ᗢ₊˚✧ ﾟ.   &3Tingle, &6Tingle! &5Kooloo-&aLimpah!&r...   
+              ₊˚ʚ ᗢ₊˚✧ ﾟ.\n.                ─── ･ ｡ﾟ☆: *.☽ .* :☆ﾟ. ───\n.                * . °•★|•°∵ ∵°•|☆•° . *"
+        event: e_fol_magic
+        #exit
+    
+    player_options:
+      what:
+        text: "What?"
+        pointer: magic
+
+  
+  banned1:
+    quester: "Banned #1"
+    first: welcome
+
+    NPC_options:
+      welcome:
+        text: "This is the story of someone who joined and got banned shortly after.\nIt gets better after a while.\n\nKudos to chatGPT."
+        pointer: ask_p1
+      p1:
+        text: "<BANNED>, a character so brash,\nEntered the game with a thunderous crash.\nConfusion struck as they questioned their place,\nLost and bewildered in this digital space."
+        pointer: ask_p2
+      p2:
+        text: "Seeking answers, they voiced their distress,\nWondering who and where, in this chaotic mess.\nA lack of spawn protection fueled their ire,\nMocking server management, fueling their fire."
+        pointer: ask_p3
+      p3:
+        text: "Claiming to be a hacker, proud and supreme,\n<BANNED> boasted of their grand scheme.\nWith arrogance, they declared their intelligence,\nHacked their way in, a digital transcendence."
+        pointer: ask_p4
+      p4:
+        text: "Unaware of the community's prominent names,\nThey demanded the return of those known to fame.\nDuvay and Smack Dom, friends from the past,\n<BANNED>'s loyalty, destined to last."
+        pointer: ask_p5
+      p5:
+        text: "Curiosity piqued, they inquired of Sigrid,\nPondering the enigma with a perplexed bid.\nBut hunger struck, and their pleas turned dire,\nClaiming starvation, they sought rescue from the mire."
+        pointer: ask_p6
+      p6:
+        text: "A self-proclaimed hacker, with threats they spewed,\nDoxing and dropping IPs, a dangerous mood.\nBrash and impulsive, their words filled with disdain,\nBut underneath the bravado, insecurity remained."
+        pointer: ask_p7
+      p7:
+        text: "Lost and disoriented, they sought a path,\nEngaging in a staring contest with a frog's wrath.\nBlaming it for their mother's painful fall,\nThreatening to turn it into a French fry brawl."
+        pointer: ask_p8
+      p8:
+        text: "Completing quests and engaging in a strange scene,\nThey kissed and punched Hank, a chaotic routine.\nBut their actions proved costly, their downfall abrupt,\nThey fell from a high place, the game had enough."
+        pointer: ask_p9
+      p9:
+        text: "Their rage intensified, seeking revenge with might,\nBuilding a world eater to bring chaos and blight.\nPotato theft, the reason for their fury,\nHank became the target of their vengeful flurry"
+        pointer: ask_p10
+      p10:
+        text: "Repeating punches, with anger they lashed,\nBut the world struck back, their efforts were dashed.\nIron Golem's strike silenced their cries,\n<BANNED> met their demise."
+        pointer: ask_p11
+      p11:
+        text: "As the chaos subsided, a verdict was cast,\n<BANNED>'s reign came to an end at last.\nTheir actions deemed unfit for this virtual realm,\nBanished from the whitelist, their fate overwhelmed."
+        pointer: ask_p12
+      p12:
+        text: "<BANNED>'s tale serves as a reminder profound,\nThat actions bear consequences, and respect must be found.\nIn this vast digital landscape, where worlds collide,\nMay we learn from their journey, with compassion as our guide."
+        #exit
+
+    player_options:
+      ask_p1:
+        text: "1/12"
+        pointer: p1
+      ask_p2:
+        text: "2/12"
+        pointer: p2
+      ask_p3:
+        text: "3/12"
+        pointer: p3
+      ask_p4:
+        text: "4/12"
+        pointer: p4
+      ask_p5:
+        text: "5/12"
+        pointer: p5
+      ask_p6:
+        text: "6/12"
+        pointer: p6
+      ask_p7:
+        text: "7/12"
+        pointer: p7
+      ask_p8:
+        text: "8/12"
+        pointer: p8
+      ask_p9:
+        text: "9/12"
+        pointer: p9
+      ask_p10:
+        text: "10/12"
+        pointer: p10
+      ask_p11:
+        text: "11/12"
+        pointer: p11
+      ask_p12:
+        text: "12/12"
+        pointer: p12
+
+
+events:
+  e_fol_magic:        "folder e_sound_magic"
+  e_sound_magic:      "notify io:sound sound:block.beacon.power_select"
